@@ -22,25 +22,23 @@
 		$ip_password = htmlspecialchars($_REQUEST['password']);
 		if (empty($_REQUEST['password'])) {
 		    $passwordErr = "*Password is required";
-	  	}
-		$sql = "SELECT email,password FROM user_data WHERE email =  \"".$ip_email."\"";
-		//echo "$sql"."<br>";
-		//"'$ip_email'";
-		//global $conn;
-		//echo $sql;
+		  }
+		$sql = "SELECT email,password FROM user_data WHERE email = '$ip_email'";
+		
+		
 		$result = $conn->query($sql);
 		$row_num = $result->num_rows;
 		if($row_num == 1){
 			$row = $result->fetch_assoc();
 				if($row["email"] == $ip_email && $row["password"]==$ip_password){
-					echo "logged in by "."email: ".$row["email"]." password: ".$row["password"]."<br>";
+					//echo "logged in by "."email: ".$row["email"]." password: ".$row["password"]."<br>";
 					$sql = "SELECT * FROM user_data where email = '$ip_email'";
 					$result = $conn->query($sql);
 					$row = $result->fetch_assoc();
 					$firstname = $row['firstname'];
 					$lastname = $row['lastname'];
 					$email = $row['email'];
-					$_SESSION['email']; = $email;
+					$_SESSION['email'] = $email;
 					$password = $row['password'];
 					$birthdate = $row['birthdate'];
 					$gender = $row['gender'];
@@ -84,7 +82,7 @@
 		</header>
 		<div align="center">
 			<div class="rectangle" style="margin-top: 150px; width: 400px;height:auto ;padding: 20px;background-color: white;">
-				<form action="#" method="post"  <!--align="left"-->
+				<form action="#" method="post">
 					<!--<?php echo htmlspecialchars("check.php");?>-->
 					<label for="email">E-mail</label>
 					<input id="email" name="email" type="text" placeholder="E-mail">

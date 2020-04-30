@@ -22,13 +22,26 @@
                 $ip_month = htmlspecialchars($_REQUEST['month']);
                 $ip_year = htmlspecialchars($_REQUEST['year']);
                 $ip_date = "$ip_year-$ip_month-$ip_day";
+                $fnameErr = $lnameErr = $passwordErr = $confirmErr = $emialErr = $dayErr = $monthErr = $yearErr = $genderErr = 'error';
+                if(!isset($_POST['gender']))
+                {
+                    //echo"please insert Gender"."<br \>";
+                    $genderErr = "*Select Gender";
+                    $Error = 1;
+                }
+                else
+                {
+                    $ip_gender = $_POST['gender'];
+                    $genderErr = '';
+                }
+            
                 //$ip_gender = $_POST['gender'];  // Storing Selected Value In Variable
                 //echo "You have selected :---------------------------" .$selected_val;  // Displaying Selected Value
                 $sql = "SELECT email FROM user_data WHERE email = '$ip_email'";
                 //echo "$sql";
                 $result = $conn->query($sql);
                 $row_num = $result->num_rows;
-                $fnameErr = $lnameErr = $passwordErr = $confirmErr = $emialErr = $dayErr = $monthErr = $yearErr = $genderErr = 'error';
+                
                 if($row_num != 0){
                 $emialErr = "*E-mail is already used";
                 $Error = 1;
@@ -68,27 +81,30 @@
                         $yearErr = "*Select Year";
                         $Error = 1;
                 }else $yearErr='';
-                if (empty($_POST['gender']) || $_POST['gender']=='') {
+                /*if (empty($_POST['gender']) || $_POST['gender']=='') {
                         $genderErr = "*Select Gender";
                         $Error = 1;
-                }else $genderErr='';
+                }else $genderErr='';*/
                 
 
                         
                 if($fnameErr=='' && $lnameErr=='' && $emialErr=='' && $passwordErr=='' && $confirmErr=='' && $dayErr=='' && $monthErr=='' && $yearErr=='' && $genderErr==''){
                         echo "$Error";
+                        
                         $result = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender')";    
-                        echo $result."<br>";
-                        echo $ip_gender."<br>";
-                        echo "test";
+                        //echo $result."<br>";
+                        //echo $ip_gender."<br>";
+                        //echo "test";
 
                         if (mysqli_query($conn, $result)) {
-                        echo "New record has been added successfully !";
+                            echo "New record has been added successfully !";
+                            header("Location:AccDone.php");
                         }
                         else {
-                                echo "Error: " . $result . ":-" . mysqli_error($conn);
+                                //echo "Error: " . $result . ":-" . mysqli_error($conn);
+                                $emialErr = '*Email is unavailable';
                         }
-                        header("Location:AccDone.php");
+                        
                 }
         }
 ?>

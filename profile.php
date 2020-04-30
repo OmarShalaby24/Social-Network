@@ -20,7 +20,7 @@
         $id = $row['id'];
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
-
+        
         $birthdate = explode('-', $row['birthdate']);
         $profile_picture = $row['profile_picture'];
         $hometown = $row['hometown'];
@@ -31,7 +31,7 @@
         switch ($birthdate[1]) {
                 case '1':
                         $month = 'January';
-                        break;
+                break;
                 case '2':
                         $month = 'February';
                         break;
@@ -66,6 +66,20 @@
                         $month = 'December';
                         break;
         }
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+                $test = $firstname;
+                $ip_firstName = htmlspecialchars($_REQUEST['firstname']);
+                $ip_lastName = htmlspecialchars($_REQUEST['lastname']);
+                $ip_password = htmlspecialchars($_REQUEST['password']);
+                $ip_confirmpassword = htmlspecialchars($_REQUEST['confirm']);
+                $ip_email = htmlspecialchars($_REQUEST['email']);
+                $ip_day = htmlspecialchars($_POST['day']);
+                $ip_month = htmlspecialchars($_REQUEST['month']);
+                $ip_year = htmlspecialchars($_REQUEST['year']);
+                $ip_date = "$ip_year-$ip_month-$ip_day";
+        }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +99,7 @@
 </head>
 
 <body style="background-color: #dddddd;">
-        <nav class="w3-sidebar w3-bar-block w3-collapse w3-top rectangle"
+        <!--<nav class="w3-sidebar w3-bar-block w3-collapse w3-top rectangle"
                 style="width:300px;background-color: black;"  id="Sidebar">
                 <div class="w3-container w3-display-container w3-padding-16"
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
@@ -102,7 +116,7 @@
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
                 </div>
-        </nav>
+        </nav>-->
 
         <!-- !PAGE CONTENT! -->
         <!-- !SEARCH BOX -->
@@ -113,25 +127,27 @@
                                                         style="color: red;"></i> Search</label>
                                         <input type="text" disabled id="search" name="search" placeholder="Search"
                                                 style="width: 700px;padding: 5px;">
-                                        </div>
+                                        <button type="button" class="fa fa-search" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;font-size: 17px">Advanced Search</label></button>
+                                </div>
                 </div>
 
                 <div align="center">
-                        <form align="left" style="padding: 20px;padding-left: 50px">
-                                <label for="firstname">First Name :</label><input type="text" id="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name" value="<?php global $firstname;echo $firstname ?>">
-                                <label for="lastname" >Last Name :</label><input type="text" id="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name" value="<?php global $lastname;echo $lastname ?>"><br><br>
-                                <label for="email" >E-mail :</label><input type="text" id="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com" value="<?php global $email;echo $email ?>">
+                        <form action="#" method="POST" align="left" style="padding: 20px;padding-left: 50px">
+                                <label for="firstname">First Name :</label><input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name" value="<?php global $firstname;echo $firstname ?>">
+                                <label><?php global $test ; echo $test; ?></label>
+                                <label for="lastname" >Last Name :</label><input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name" value="<?php global $lastname;echo $lastname ?>"><br><br>
+                                <label for="email" >E-mail :</label><input type="text" id="email" name="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com" value="<?php global $email;echo $email ?>">
                                 <label id="used_email_msg" style="color: red;font-size: 12px;" hidden>*E-mail is already used</label><br><br>
                                 <label >Password :</label>
                                 <a href="#" id="link" style="color: red;" onclick="changePassword()">Change</a>
                                 <div id="pass" hidden style="margin-left: 130px;margin-top: -62px;">
                                         <br>
-                                        <input type="password" id="newpass" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="New Password">
-                                        <input type="password" id="cnfpass" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Confirm Password">
+                                        <input type="password" id="password" name="password" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="New Password">
+                                        <input type="password" id="confirm" name="confirm" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Confirm Password">
                                 </div>
                                 <br><hr>
-                                <label for="phone" >Phone Number :</label><input type="text" id="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="01** *** ****" value="<?php global $phone;echo $phone ?>"><br><br>
-                                <label id="Birthdate">Birthdate :</label>
+                                <label for="phone" >Phone Number :</label><input type="text" id="phone" name="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="01** *** ****" value="<?php global $phone;echo $phone ?>"><br><br>
+                                <label id="birthdate">Birthdate :</label>
                                 <select id="day" name="day" disabled>
                                         <option value=disable selected hidden><?php global $birthdate;echo "$birthdate[2]"; ?></option>
                                         <option value=1>1</option>
@@ -340,9 +356,12 @@
                                 <label for="bio" >About me :</label><br>
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled></textarea>
                                 <br>
-                                <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
-                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onclick="Save()"> <label style="color: white;font-size: 17px">Save</label></button>
+                                <button id="login" name="login" onClick="window.location.href ='home.php'"; >Login</button>
+                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" > <label style="color: white;font-size: 17px">Save</label></button>
+                                
                         </form>
+                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
+                        <label for=""><?PHP global $ip_firstName; echo $ip_firstName; ?></label>
                         
                 </div>
         </div>
