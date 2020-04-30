@@ -1,8 +1,26 @@
 <?php
-        if(isset($_SESSION['email'])){
-                $email = $_SESSION['email'];
-                echo "$email";
+        session_start();
+        $servername = 'localhost';
+        $username = 'root';
+        $password = '';
+        $database = 'database';
+        $conn = new mysqli($servername, $username, $password, $database);
+        // Check connection
+        if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
         }
+        $email = $_SESSION['email'];
+        $sql = "SELECT * FROM user_data WHERE email = '$email'";
+        //echo "$sql";
+
+        $result = $conn->query($sql);
+        $row_num = $result->num_rows;
+        $row = $result->fetch_assoc();
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
+
+
+
 
 ?>
 
@@ -30,7 +48,7 @@
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
                         <img src="IMG/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px" onClick="window.location.href ='profile.php'"><br><br>
-                        <label style="text-align: center;color: white;"><?php  ?></label>
+                        <label style="text-align: center;color: white;"><?php echo "$firstname $lastname"; ?></label>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;">
@@ -65,7 +83,38 @@
                               </div>
                             </div>
                         </div>
-                        <h1>First</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1>
+                        <div class="" style="padding: 20px; width:700px">
+                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                              <div class="w3-container w3-padding">
+                                <img src="IMG/female.png" align="left" width="50">
+                                <label align="left">Mayar Adel</label>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Hello World.</text>
+                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
+                              </div>
+                            </div>
+                        </div>
+                        <div class="" style="padding: 20px; width:700px">
+                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                              <div class="w3-container w3-padding">
+                                <img src="IMG/female.png" align="left" width="50">
+                                <label align="left">Raghda Sallam</label>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Hello Team.</text>
+                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
+                              </div>
+                            </div>
+                        </div>
+                        <div class="" style="padding: 20px; width:700px">
+                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                              <div class="w3-container w3-padding">
+                                <img src="IMG/male.png" align="left" width="50">
+                                <label align="left">Omar Emara</label>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">First Post on this Website.</text>
+                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
+                              </div>
+                            </div>
+                        </div>
+
+                        <!--<h1>First</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1>-->
                 </div>
         </div>
 </body>

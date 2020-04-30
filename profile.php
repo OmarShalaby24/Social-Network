@@ -1,3 +1,73 @@
+<?php
+        session_start();
+        $servername = 'localhost';
+        $username = 'root';
+        $password = '';
+        $database = 'database';
+        $conn = new mysqli($servername, $username, $password, $database);
+        // Check connection
+        if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+        }
+        $email = $_SESSION['email'];
+        $sql = "SELECT * FROM user_data WHERE email = '$email'";
+        //echo "$sql";
+
+        $result = $conn->query($sql);
+        $row_num = $result->num_rows;
+        $row = $result->fetch_assoc();
+
+        $id = $row['id'];
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
+
+        $birthdate = explode('-', $row['birthdate']);
+        $profile_picture = $row['profile_picture'];
+        $hometown = $row['hometown'];
+        $marital_status = $row['marital_status'];
+        $about_me = $row['about_me'];
+        $gender = $row['gender'];
+        $phone = $row['phone'];
+        switch ($birthdate[1]) {
+                case '1':
+                        $month = 'January';
+                        break;
+                case '2':
+                        $month = 'February';
+                        break;
+                case '3':
+                        $month = 'March';
+                        break;
+                case '4':
+                        $month = 'April';
+                        break;
+                case '5':
+                        $month = 'May';
+                        break;
+                case '6':
+                        $month = 'June';
+                        break;
+                case '7':
+                        $month = 'July';
+                        break;
+                case '8':
+                        $month = 'August';
+                        break;
+                case '9':
+                        $month = 'Septemper';
+                        break;
+                case '10':
+                        $month = 'October';
+                        break;
+                case '11':
+                        $month = 'November';
+                        break;
+                case '12':
+                        $month = 'December';
+                        break;
+        }
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -47,10 +117,10 @@
                 </div>
 
                 <div align="center">
-                        <div align="left" style="padding: 20px;padding-left: 50px">
-                                <label for="firstname">First Name :</label><input type="text" id="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name">
-                                <label for="lastname" >Last Name :</label><input type="text" id="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name"><br><br>
-                                <label for="email" >E-mail :</label><input type="text" id="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com">
+                        <form align="left" style="padding: 20px;padding-left: 50px">
+                                <label for="firstname">First Name :</label><input type="text" id="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name" value="<?php global $firstname;echo $firstname ?>">
+                                <label for="lastname" >Last Name :</label><input type="text" id="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name" value="<?php global $lastname;echo $lastname ?>"><br><br>
+                                <label for="email" >E-mail :</label><input type="text" id="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com" value="<?php global $email;echo $email ?>">
                                 <label id="used_email_msg" style="color: red;font-size: 12px;" hidden>*E-mail is already used</label><br><br>
                                 <label >Password :</label>
                                 <a href="#" id="link" style="color: red;" onclick="changePassword()">Change</a>
@@ -60,10 +130,10 @@
                                         <input type="password" id="cnfpass" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Confirm Password">
                                 </div>
                                 <br><hr>
-                                <label for="phone" >Phone Number :</label><input type="text" id="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="01** *** ****"><br><br>
+                                <label for="phone" >Phone Number :</label><input type="text" id="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="01** *** ****" value="<?php global $phone;echo $phone ?>"><br><br>
                                 <label id="Birthdate">Birthdate :</label>
                                 <select id="day" name="day" disabled>
-                                        <option value=disable selected hidden>Day</option>
+                                        <option value=disable selected hidden><?php global $birthdate;echo "$birthdate[2]"; ?></option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
                                         <option value=3>3</option>
@@ -97,7 +167,7 @@
                                         <option value=31>31</option>
                                 </select>
                                 <select id="month" name="month" disabled>
-                                        <option value=disable selected hidden>Month</option>
+                                        <option value=disable selected hidden><?php global $month;echo "$month"; ?></option>
                                         <option value=1>January</option>
                                         <option value=2>February</option>
                                         <option value=3>March</option>
@@ -113,7 +183,7 @@
 
                                 </select>
                                 <select id="year" name="year" disabled>
-                                        <option value=disable selected hidden>Year</option>
+                                        <option value=disable selected hidden><?php global $birthdate;echo "$birthdate[0]"; ?></option>
                                         <option value=2020>2020</option>
                                         <option value=2019>2019</option>
                                         <option value=2018>2018</option>
@@ -243,22 +313,35 @@
                                         <option value="female">Female</option>
                                 </select>
                                 <br><br>
-                                <label for="hometown">Hometown :</label></label><input type="text" id="hometown" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town"><br>
+                                <label for="hometown">Hometown :</label></label>
+                                <input type="text" id="hometown" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town" value="<?php global $hometown;echo $hometown ?>"><br>
                                 <br>
                                 <label for="status">Marital Status :</label>
                                 <select name="status" id="status" disabled>
-                                        <option value=disable selected hidden >Not Selected</option>
-                                        <option value="married">Single</option>
-                                        <option value="married">Engaged</option>
-                                        <option value="married">Married</option>
+                                        <?php
+                                        global $marital_status;
+                                        if($marital_status=='S'){
+                                                ?><option value="S" selected hidden >Single</option><?php
+                                        }
+                                        elseif($marital_status=='M'){
+                                                ?><option value='M' selected hidden >Married</option><?php
+                                        }
+                                        elseif($marital_status=='E'){
+                                                ?><option value='E' selected hidden >Engaged</option><?php
+                                        }
+                                        else
+                                                ?><option value=disabled selected hidden >Not Selected</option><?php
+                                        ?>
+                                        <option value="S">Single</option>
+                                        <option value="E">Engaged</option>
+                                        <option value="M">Married</option>
                                 </select>
                                 <br><br>
                                 <label for="bio" >About me :</label><br>
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled></textarea>
-                                <div align="left" style="margin-left:-50px;padding-left: 75px;padding-bottom: 30px;">
-                                        <button id="edit" name="edit" style="width: auto;" onclick="Edit()">Edit</button>
-                                        <button id="save" disabled name="save" style="width: auto;" onclick="Save()">Save</button>
-                                </div>
+                                <br>
+                                <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
+                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onclick="Save()"> <label style="color: white;font-size: 17px">Save</label></button>
                         </form>
                         
                 </div>

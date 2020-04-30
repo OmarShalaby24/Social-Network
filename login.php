@@ -5,6 +5,7 @@
 	$database = 'database';
 	$id = 0;
 
+	session_start();
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $database);
 	// Check connection
@@ -39,6 +40,7 @@
 					$firstname = $row['firstname'];
 					$lastname = $row['lastname'];
 					$email = $row['email'];
+					$_SESSION['email']; = $email;
 					$password = $row['password'];
 					$birthdate = $row['birthdate'];
 					$gender = $row['gender'];
