@@ -1,0 +1,296 @@
+.rectangle {
+        height: 250px;
+        width: -1;
+        background-color: black;
+        box-shadow: 0px 5px 10px;
+        -ms-overflow-style: none;
+}
+.post{
+        background-color: #dddddd;
+        box-shadow: 0 0 5px black;
+        height: auto;
+        width: 1000px;
+        margin: 30px;
+        padding: 20px;
+        font-weight: 900;
+        font-size: 15px;
+        font-family: cursive;
+        border-radius: 20px;
+}
+.rightSide{
+        background-color: #dddddd;
+        box-shadow: 0 0 5px black;
+        height: auto;
+        width: 1000px;
+        margin: 30px;
+        padding: 20px;
+        font-weight: 900;
+        font-size: 15px;
+        font-family: cursive;
+        border-radius: 20px;
+}
+
+::-webkit-scrollbar {
+        width: 20px;
+}
+::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgb(0, 0, 0);
+        border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+        background: yellow;
+        border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+        background: green;
+}
+.vrectangle {
+        height: -1;
+        background-color: black;
+        box-shadow: 0px 5px 10px;
+        background-color: #dddddd;
+}
+
+div.sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        font-size: 20px;
+}
+
+.Vrectangle {
+        height: -1;
+        width: 200px;
+        background-color: black;
+        box-shadow: 5px 0px 10px;
+        position: sticky;
+        top: 0;
+        width: 200px;
+}
+
+.logo {
+        border-radius: 500px;
+        border-color: white;
+        box-shadow: 5px 10px 10px;
+        margin-top: 190px;
+}
+
+input[type=text], [type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-sizing: border-box;
+        font-weight: 900;
+        font-family: cursive;
+        font-size: 15px;
+        text-align: center;
+}
+
+.textarea {
+        width: 50%;
+        resize: none;
+        font-family: cursive;
+        padding: 12px 15px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-sizing: border-box;
+        font-weight: 900;
+        font-size: 15px;
+        text-align: left;
+}
+
+select {
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 200px;
+        box-sizing: border-box;
+        font-weight: 900;
+        font-family: cursive;
+        font-size: 15px;
+}
+
+label {
+        padding-left: 10px;
+        font-family: cursive;
+        font-size: 20px;
+        font-weight: 900;
+        color: black;
+}
+
+.label {
+        padding-left: 10px;
+        font-family: cursive;
+        font-size: 20px;
+        font-weight: 900;
+        color: black;
+}
+
+.sidebar-item {
+        width: 100%;
+        display: block;
+        text-align: left;
+        border: 2px;
+        border-color: blue;
+        white-space: normal;
+        float: none;
+        outline: 0;
+}
+
+.sidebar-button {
+        border: none;
+        display: inline-block;
+        padding: 8px 16px;
+        vertical-align: middle;
+        overflow: hidden;
+        text-decoration: none;
+        color: white;
+        background-color: black;
+        text-align: center;
+        cursor: pointer;
+        white-space: nowrap;
+}
+
+.sidebar-button:hover {
+        color: red!important;
+        border-radius: 10px;
+        background-color: #111111!important;
+}
+
+input[type=submit], [type=button] {
+        width: 100%;
+        background-color: #000000;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 900;
+        font-family: cursive;
+}
+
+input[type=submit]:hover, [type=button]:hover {
+        background-color: #222222;
+}
+
+button {
+        width: 100%;
+        background-color: #000000;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 900;
+        font-family: cursive;
+}
+
+button:hover {
+        background-color: #111111;
+        color: red;
+}
+
+button:disabled {
+        background-color: #333333;
+        color: white;
+}
+
+hr.new {
+        border-top: 1px solid red;
+}
+
+.selectdiv {
+        position: relative;
+        float: left;
+        min-width: 200px;
+        margin: 50px 33%;
+}
+
+select::-ms-expand {
+        display: none;
+}
+
+.selectdiv:after {
+        content: '<>';
+        font: 17px "Consolas", monospace;
+        color: #333;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        right: 11px;
+        top: 18px;
+        padding: 0 0 2px;
+        border-bottom: 1px solid #999;
+        position: absolute;
+        pointer-events: none;
+}
+
+.selectdiv select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: block;
+        width: 100%;
+        max-width: 320px;
+        height: 50px;
+        float: right;
+        margin: 5px 0px;
+        padding: 0px 24px;
+        font-size: 16px;
+        line-height: 1.75;
+        color: #333;
+        background-color: #ffffff;
+        background-image: none;
+        border: 1px solid #cccccc;
+        -ms-word-break: normal;
+        word-break: normal;
+}
+
+.loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+        0% {
+                transform: rotate(0deg);
+        }
+        100% {
+                transform: rotate(360deg);
+        }
+}
+
+.glow {
+        font-size: 80px;
+        color: #fff;
+        text-align: center;
+        -webkit-animation: glow 1s ease-in-out infinite alternate;
+        -moz-animation: glow 1s ease-in-out infinite alternate;
+        animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+        from {
+                box-shadow: 0 0 2px white, 0 0 4px #fff, 0 0 6px white, 0 0 8px white, 0 0 10px white, 0 0 12px white, 0 0 14px white;
+        }
+        to {
+                box-shadow: 0 0 2px black, 0 0 4px black, 0 0 6px black, 0 0 8px black, 0 0 10px black, 0 0 12px black, 0 0 14px black;
+        }
+}

@@ -1,0 +1,14 @@
+CREATE TABLE `user_data` (
+  `id` int(11) NOT NULL,
+  `firstname` varchar(20) NOT NULL,
+  `lastname` varchar(20) NOT NULL,
+  `email` varchar(360) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `birthdate` varchar(10) NOT NULL,
+  `profile_picture` varbinary(2000) DEFAULT NULL,
+  `hometown` varchar(20) DEFAULT NULL,
+  `marital_status` varchar(1) DEFAULT NULL CHECK (`marital_status` in ('S','E','M')),
+  `about_me` varchar(20) DEFAULT NULL,
+  `gender` varchar(8) NOT NULL CHECK (gender in ('male','female')),
+  `phone` varchar(11) DEFAULT NULL
+)
