@@ -1,154 +1,90 @@
-<?php
-        $servername = 'localhost';
-        $username = 'root';
-        $password = '';
-        $database = 'database';
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $database);
-        // Check connection
-        if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-        }
-        //echo "connected to database";
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $ip_firstName = htmlspecialchars($_REQUEST['firstName']);
-                $ip_lastName = htmlspecialchars($_REQUEST['lastName']);
-                $ip_password = htmlspecialchars($_REQUEST['password']);
-                $ip_confirmpassword = htmlspecialchars($_REQUEST['confirm']);
-                $ip_email = htmlspecialchars($_REQUEST['email']);
-                $ip_day = htmlspecialchars($_POST['day']);
-                $ip_month = htmlspecialchars($_REQUEST['month']);
-                $ip_year = htmlspecialchars($_REQUEST['year']);
-                $ip_date = "$ip_year-$ip_month-$ip_day";
-                $fnameErr = $lnameErr = $passwordErr = $confirmErr = $emialErr = $dayErr = $monthErr = $yearErr = $genderErr = 'error';
-                if(!isset($_POST['gender']))
-                {
-                    //echo"please insert Gender"."<br \>";
-                    $genderErr = "*Select Gender";
-                    $Error = 1;
-                }
-                else
-                {
-                    $ip_gender = $_POST['gender'];
-                    $genderErr = '';
-                }
-            
-                //$ip_gender = $_POST['gender'];  // Storing Selected Value In Variable
-                //echo "You have selected :---------------------------" .$selected_val;  // Displaying Selected Value
-                $sql = "SELECT email FROM user_data WHERE email = '$ip_email'";
-                //echo "$sql";
-                $result = $conn->query($sql);
-                $row_num = $result->num_rows;
-                
-                if($row_num != 0){
-                $emialErr = "*E-mail is already used";
-                $Error = 1;
-                }else $Error=0;
-                if (empty($_REQUEST['firstName'])) {
-                        $fnameErr = "*Please enter First Name";
-                        $Error = 1;
-                }else $fnameErr='';
-                if (empty($_REQUEST['lastName'])) {
-                        $lnameErr = "*Please enter Last Name";
-                        $Error = 1;
-                }else $lnameErr='';
-                if (empty($_REQUEST['password'])) {
-                        $passwordErr = "*Please enter Password";
-                        $Error = 1;
-                }else $passwordErr='';
-                if (empty($_REQUEST['confirm'])) {
-                        $confirmErr = "*Please Confirm Password";
-                }else $confirmErr='';
-                if ($_REQUEST['password']!=$_REQUEST['confirm']) {
-                        $confirmErr = "*Password is not the Same";
-                        $Error = 1;
-                }else $confirmErr='';
-                if (empty($_REQUEST['email'])) {
-                        $emialErr = "*Please enter E-mail";
-                        $Error = 1;
-                }else $emialErr='';
-                if (empty($_POST['day'])) {
-                        $dayErr = "*Select Day";
-                        $Error = 1;
-                }else $dayErr='';
-                if (empty($_REQUEST['month'])||$_REQUEST['month']=='disable') {
-                        $monthErr = "*Select Month";
-                        $Error = 1;
-                }else $monthErr='';
-                if (empty($_REQUEST['year'])||$_REQUEST['year']=='disable') {
-                        $yearErr = "*Select Year";
-                        $Error = 1;
-                }else $yearErr='';
-                /*if (empty($_POST['gender']) || $_POST['gender']=='') {
-                        $genderErr = "*Select Gender";
-                        $Error = 1;
-                }else $genderErr='';*/
-                
-
-                        
-                if($fnameErr=='' && $lnameErr=='' && $emialErr=='' && $passwordErr=='' && $confirmErr=='' && $dayErr=='' && $monthErr=='' && $yearErr=='' && $genderErr==''){
-                        echo "no of Errors = $Error"."<br>";
-                        
-                        $result = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender')";    
-                        echo $result."<br>";
-                        //echo $result."<br>";
-                        //echo $ip_gender."<br>";
-                        //echo "test";
-                        
-                        if (mysqli_query($conn, $result)) {
-                            echo "New record has been added successfully !";
-                            header("Location:AccDone.php");
-                        }
-                        else {
-                                //echo "Error: " . $result . ":-" . mysqli_error($conn);
-                                $emialErr = '*Email is unavailable';
-                        }
-                        
-                }
-        }
-?>
-
-
-
 <!DOCTYPE html>
 <html>
-        <head>
-                <title>Create Account</title>
-                <meta charset="utf-8">
-                <link rel="stylesheet" href="style.css">
-        </head>
-        <body style="background-color: #dddddd;">
-                <header class="rectangle">
-                        <div align="center"><img src="img/Logo.png" alt="logo" class="logo glow" border="2px" height="150px"></div>
+
+<head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <link rel="stylesheet" href="style.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body style="background-color: #dddddd;">
+        <nav class="w3-sidebar w3-bar-block w3-collapse w3-top rectangle"
+                style="width:300px;background-color: black;"  id="Sidebar">
+                <div class="w3-container w3-display-container w3-padding-16"
+                style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
+                        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
+                                style="background-color: white;"></i>
+                        <img src="img/male.png" alt="" class="w3-wide glow" height="130px" style="border-radius: 200px;box-shadow: 0 0 10px white;" onClick="window.location.href ='profile.html'"><br><br>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href =''">Change Profile Pictuer</a>
+                </div>
+                <div class="w3-padding-64 w3-large w3-text-grey"
+                        style="font-weight:bold;height: auto;background-color: black;position: sticky;">
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.html'">Home</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='profile.html'" style="color: red!important;border-radius: 10px;background-color: #111111!important;">Profile</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.html'">Friend Requests</a>
+                        <br><br><br><br><br><br><br>
+                        <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.html'">Logout</a>
+                </div>
+        </nav>
+        <!-- Top menu on small screens -->
+        <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+                <header class="rectangle" style="height: auto;box-shadow: none;">
+                        <div align="left" style="padding-left: 50px;">
+                                <label for="search" style="color: white;padding-right: 50px;"><i class="fa fa-search"
+                                                style="color: red;"></i> Search</label>
+                                <input type="text" id="search" name="search" placeholder="Search"
+                                        style="width: 600px;padding: 5px;">
+                        </div>
                 </header>
+                <div class="w3-bar-item w3-padding-24 w3-wide">
+                        <img src="img/male.png" alt="" class="w3-wide" height="100px">
+                        <label style="text-align: center;color: white;">FName LName</label>
+                </div>
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
+                                class="fa fa-bars"></i></a>
+        </header>
+
+
+        <!-- !PAGE CONTENT! -->
+        <!-- !SEARCH BOX -->
+        <div class="w3-main" style="margin-left:300px;">
+                <div class="rectangle sticky"  style="height: auto;box-shadow: none;">
+                                <div align="left" style="padding-left: 50px;">
+                                        <label for="search" style="color: white;padding-right: 50px;"><i class="fa fa-search"
+                                                        style="color: red;"></i> Search</label>
+                                        <input type="text" disabled id="search" name="search" placeholder="Search"
+                                                style="width: 700px;padding: 5px;">
+                                        </div>
+                </div>
+
+                <!-- Push down content on small screens -->
+                <div class="w3-hide-large" style="margin-top:83px"></div>
+
                 <div align="center">
-                        <form action="#" method="POST" class="rectangle" style="margin-top: 150px; width: 400px;height:auto ;padding: 20px;background-color: white;">
-                                <!--<?php echo htmlspecialchars("CreateAcc.php");?>-->
-                                <label for="firstName">First Name</label>
-                                <input type="text" name="firstName" id="firstName" placeholder="First Name">
-                                <label style="color: red;font-size: 12px;"><?php global $fnameErr;echo $fnameErr ?></label><br>
-
-                                <label for="lastName">Last Name</label>
-                                <input type="text" name="lastName" id="lastName" placeholder="Last Name">
-                                <label style="color: red;font-size: 12px;"><?php global $lnameErr;echo $lnameErr ?></label><br>
-
-                                <label for="email">E-mail</label>
-                                <input type="text" name="email" id="email" placeholder="E-mail">
-                                <label style="color: red;font-size: 12px;"><?php global $emialErr;echo $emialErr ?></label><br>
-
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" placeholder="Password">
-                                <label style="color: red;font-size: 12px;"><?php global $passwordErr;echo $passwordErr ?></label><br>
-
-                                <label for="confirm">Confirm Password</label>
-                                <input type="password" name="confirm" id="confirm" placeholder="Confirm Password">
-                                <label style="color: red;font-size: 12px;"><?php global $confirmErr;echo $confirmErr ?></label>
-                                <br>
-                                <label for="birthdate">Birthdate</label><br>
-                                <select id="day" name="day">
-                                        <option value='' selected hidden>Day</option>
+                        <div align="left" style="padding: 50px;">
+                                <label for="firstname">First Name :</label><input type="text" id="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name">
+                                <label for="lastname" >Last Name :</label><input type="text" id="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name"><br><br>
+                                <label for="email" >E-mail :</label><input type="text" id="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com">
+                                <label id="used_email_msg" style="color: red;font-size: 12px;" hidden>*E-mail is already used</label><br><br>
+                                <label >Password :</label>
+                                <a href="#" id="link" style="color: red;" onclick="changePassword()">Change</a>
+                                <div id="pass" hidden style="margin-left: 130px;margin-top: -62px;">
+                                        <br>
+                                        <input type="password" id="newpass" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="New Password">
+                                        <input type="password" id="cnfpass" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Confirm Password">
+                                </div>
+                                <br><hr>
+                                <label for="phone" >Phone Number :</label><input type="text" id="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="01** *** ****"><br><br>
+                                <label id="Birthdate">Birthdate :</label>
+                                <select id="day" name="day" disabled>
+                                        <option value=disable selected hidden>Day</option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
                                         <option value=3>3</option>
@@ -181,8 +117,8 @@
                                         <option value=30>30</option>
                                         <option value=31>31</option>
                                 </select>
-                                <select id="month" name="month">
-                                        <option value='' selected hidden>Month</option>
+                                <select id="month" name="month" disabled>
+                                        <option value=disable selected hidden>Month</option>
                                         <option value=1>January</option>
                                         <option value=2>February</option>
                                         <option value=3>March</option>
@@ -197,8 +133,8 @@
                                         <option value=12>December</option>
 
                                 </select>
-                                <select id="year" name="year">
-                                        <option value='' selected hidden>Year</option>
+                                <select id="year" name="year" disabled>
+                                        <option value=disable selected hidden>Year</option>
                                         <option value=2020>2020</option>
                                         <option value=2019>2019</option>
                                         <option value=2018>2018</option>
@@ -320,22 +256,88 @@
                                         <option value=1902>1902</option>
                                         <option value=1901>1901</option>
                                         <option value=1900>1900</option>
-                                </select><br>
-                                <label style="color: red;font-size: 12px;"><?php global $dayErr;echo $dayErr ?></label>
-                                <label style="color: red;font-size: 12px;"><?php global $monthErr;echo $monthErr ?></label>
-                                <label style="color: red;font-size: 12px;"><?php global $yearErr;echo $yearErr ?></label>
+                                </select>
+                                <br><br>
+                                <label for="gender">Gender :</label>
+                                <select name="gender" id="gender" disabled>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                </select>
+                                <br><br>
+                                <label for="hometown">Hometown :</label></label><input type="text" id="hometown" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town"><br>
                                 <br>
-                                <label >Gender</label><br>
-                                <input type="radio" id="male" name="gender" value="male">
-                                <label for="male">Male</label>
-                                <br>
-                                <input type="radio" id="female" name="gender" value="female">
-                                <label for="female">Female</label>
-                                <br>
-                                <label style="color: red;font-size: 12px;"><?php global $genderErr;echo $genderErr ?></label>
-
-                                <button id="create" name="create" onclick="window.location.href ='AccDone.html';">Create Account</button>
-		        </form>
+                                <label for="status">Marital Status :</label>
+                                <select name="status" id="status" disabled>
+                                        <option value=disable selected hidden >Not Selected</option>
+                                        <option value="married">Single</option>
+                                        <option value="married">Engaged</option>
+                                        <option value="married">Married</option>
+                                </select>
+                                <br><br>
+                                <label for="bio" >About me :</label><br>
+                                <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled></textarea>
+                        </div>
+                        <div align="left" style="margin-top: -30px;padding-left: 75px;padding-bottom: 30px;">
+                                <button id="edit" name="edit" style="width: auto;" onclick="Edit()">Edit</button>
+                                <button id="save" disabled name="save" style="width: auto;" onclick="Save()">Save</button>
+                        </div>
                 </div>
-        </body>
+        </div>
+        <script>
+                // Accordion 
+                function myAccFunc() {
+                        var x = document.getElementById("demoAcc");
+                        if (x.className.indexOf("w3-show") == -1) {
+                                x.className += " w3-show";
+                        } else {
+                                x.className = x.className.replace(" w3-show", "");
+                        }
+                }
+
+                // Click on the "Jeans" link on page load to open the accordion for demo purposes
+                document.getElementById("myBtn").click();
+
+
+                // Open and close sidebar
+                function Edit() {
+                        document.getElementById("edit").disabled = true;
+                        document.getElementById("save").disabled = false;
+                        document.getElementById("firstname").disabled = false;
+                        document.getElementById("lastname").disabled = false;
+                        document.getElementById("email").disabled = false;
+                        document.getElementById("phone").disabled = false;
+                        document.getElementById("gender").disabled = false;
+                        document.getElementById("day").disabled = false;
+                        document.getElementById("month").disabled = false;
+                        document.getElementById("year").disabled = false;
+                        document.getElementById("hometown").disabled = false;
+                        document.getElementById("status").disabled = false;
+                        document.getElementById("bio").disabled = false;
+                }
+                
+                function Save() {
+                        document.getElementById("edit").disabled = false;
+                        document.getElementById("save").disabled = true;
+                        document.getElementById("firstname").disabled = true;
+                        document.getElementById("lastname").disabled = true;
+                        document.getElementById("email").disabled = true;
+                        document.getElementById("phone").disabled = true;
+                        document.getElementById("gender").disabled = true;
+                        document.getElementById("day").disabled = true;
+                        document.getElementById("month").disabled = true;
+                        document.getElementById("year").disabled = true;
+                        document.getElementById("hometown").disabled = true;
+                        document.getElementById("status").disabled = true;
+                        document.getElementById("bio").disabled = true;
+                        document.getElementById("pass").hidden = true;
+                        document.getElementById("link").hidden = false;
+                }
+                function changePassword(){
+                        document.getElementById("pass").hidden = false;
+                        document.getElementById("save").disabled = false;
+                        document.getElementById("link").hidden = true;
+                }
+                </script>
+</body>
+
 </html>

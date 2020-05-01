@@ -35,10 +35,12 @@
 					$sql = "SELECT * FROM user_data where email = '$ip_email'";
 					$result = $conn->query($sql);
 					$row = $result->fetch_assoc();
+					$id = $row['id'];
 					$firstname = $row['firstname'];
 					$lastname = $row['lastname'];
 					$email = $row['email'];
 					$_SESSION['email'] = $email;
+					$_SESSION['id'] = $id;
 					$password = $row['password'];
 					$birthdate = $row['birthdate'];
 					$gender = $row['gender'];
@@ -46,7 +48,9 @@
 					$em = $row['email'];
 					echo "$firstname <br>$lastname <br>$email <br>$password <br>$birthdate <br>$gender <br>";
 					echo " ana Rabena nasarny"."<br>";
+					echo "ID : ".$_SESSION['id']."<br>";
 					header("Location:home.php");
+					exit();
 				}
 				//else{
 					//if($password != $row['password'])

@@ -1,82 +1,295 @@
 <?php
-        session_start();
-        $servername = 'localhost';
-        $username = 'root';
-        $password = '';
-        $database = 'database';
-        $conn = new mysqli($servername, $username, $password, $database);
-        // Check connection
-        if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-        }
-        $email = $_SESSION['email'];
-        $sql = "SELECT * FROM user_data WHERE email = '$email'";
-        //echo "$sql";
+    session_start();
+    $servername = 'localhost';
+    $username = 'root';
+    $password = '';
+    $database = 'database';
+    $conn = new mysqli($servername, $username, $password, $database);
+    // Check connection
+    if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+    }
+    $email = $_SESSION['email'];
+    $id = $_SESSION['id'];
+    //echo "$id"."<br>";
+    //echo $email."<br>";
+    $sql = "SELECT * FROM user_data WHERE id = '$id'";
 
-        $result = $conn->query($sql);
-        $row_num = $result->num_rows;
-        $row = $result->fetch_assoc();
+    $result = $conn->query($sql);
+    $row_num = $result->num_rows;
+    $row = $result->fetch_assoc();
 
-        $id = $row['id'];
-        $firstname = $row['firstname'];
-        $lastname = $row['lastname'];
+    $id = $row['id'];
+    $firstname = $row['firstname'];
+    $lastname = $row['lastname'];
+    $password = $row['password'];
+    $email = $row['email'];
+    $birthdate = explode('-', $row['birthdate']);
+    //read date from the database
+    //echo "month : $birthdate[1]"."<br>";
+    $day = $birthdate[2];
+    $month = $birthdate[1];
+    $year = $birthdate[0];
+    $profile_picture = $row['profile_picture'];
+    $hometown = $row['hometown'];
+    $status = $row['marital_status'];
+    $bio = $row['about_me'];
+    $gender = $row['gender'];
+    $phone = $row['phone'];
         
-        $birthdate = explode('-', $row['birthdate']);
-        $profile_picture = $row['profile_picture'];
-        $hometown = $row['hometown'];
-        $marital_status = $row['marital_status'];
-        $about_me = $row['about_me'];
-        $gender = $row['gender'];
-        $phone = $row['phone'];
-        switch ($birthdate[1]) {
-                case '1':
-                        $month = 'January';
-                break;
-                case '2':
-                        $month = 'February';
-                        break;
-                case '3':
-                        $month = 'March';
-                        break;
-                case '4':
-                        $month = 'April';
-                        break;
-                case '5':
-                        $month = 'May';
-                        break;
-                case '6':
-                        $month = 'June';
-                        break;
-                case '7':
-                        $month = 'July';
-                        break;
-                case '8':
-                        $month = 'August';
-                        break;
-                case '9':
-                        $month = 'Septemper';
-                        break;
-                case '10':
-                        $month = 'October';
-                        break;
-                case '11':
-                        $month = 'November';
-                        break;
-                case '12':
-                        $month = 'December';
-                        break;
-        }
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-                $test = $firstname;
-                $ip_firstName = htmlspecialchars($_REQUEST['firstname']);
-                $ip_lastName = htmlspecialchars($_REQUEST['lastname']);
-                $ip_password = htmlspecialchars($_REQUEST['password']);
-                $ip_confirmpassword = htmlspecialchars($_REQUEST['confirm']);
-                $ip_email = htmlspecialchars($_REQUEST['email']);
-                $ip_day = htmlspecialchars($_POST['day']);
-                $ip_month = htmlspecialchars($_REQUEST['month']);
-                $ip_year = htmlspecialchars($_REQUEST['year']);
-                $ip_date = "$ip_year-$ip_month-$ip_day";
+    switch ($month) {
+            case '1':
+                    $S_month = 'January';
+            break;
+            case '2':
+                    $S_month = 'February';
+                    break;
+            case '3':
+                    $S_month = 'March';
+                    break;
+            case '4':
+                    $S_month = 'April';
+                    break;
+            case '5':
+                    $S_month = 'May';
+                    break;
+            case '6':
+                    $S_month = 'June';
+                    break;
+            case '7':
+                    $S_month = 'July';
+                    break;
+            case '8':
+                    $S_month = 'August';
+                    break;
+            case '9':
+                    $S_month = 'Septemper';
+                    break;
+            case '10':
+                    $S_month = 'October';
+                    break;
+            case '11':
+                    $S_month = 'November';
+                    break;
+            case '12':
+                    $S_month = 'December';
+                    break;
+    }
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    //take values from the form as it is submited
+        $ip_firstname = htmlspecialchars($_REQUEST['firstname']);
+        $ip_lastname = htmlspecialchars($_REQUEST['lastname']);
+        $ip_password = htmlspecialchars($_REQUEST['password']);
+        $ip_confirmpassword = htmlspecialchars($_REQUEST['confirm']);
+        $ip_email = htmlspecialchars($_REQUEST['email']);
+        $ip_phone = htmlspecialchars($_REQUEST['phone']);
+        //read date form the Form
+        $ip_day = htmlspecialchars($_REQUEST['day']);
+        $ip_month = htmlspecialchars($_REQUEST['month']);
+        $ip_year = htmlspecialchars($_REQUEST['year']);
+        //echo "Month From the Form : $ip_month"."<br>";
+        $ip_date = "$ip_year-$ip_month-$ip_day";
+        $ip_gender = htmlspecialchars($_REQUEST['gender']);
+        $ip_hometown = htmlspecialchars($_REQUEST['hometown']);
+        $ip_status = htmlspecialchars($_REQUEST['status']);
+        $ip_bio = htmlspecialchars($_REQUEST['bio']);
+        /*    
+        echo $ip_firstname."<br>";
+        echo $ip_lastname."<br>";
+        echo $ip_password."<br>";
+        echo $ip_confirmpassword."<br>";
+        echo $ip_email."<br>";
+        echo $ip_phone."<br>";
+        echo $ip_day."<br>";
+        echo $ip_month."<br>";
+        echo $ip_year."<br>";
+        echo $ip_gender."<br>";
+        echo $ip_hometown."<br>";
+        echo $ip_status."<br>";
+        echo $ip_bio."<br>"."<br>"."<br>";
+        */
+        $fnameErr = $lnameErr = $passwordErr = $confirmErr = $emailErr = $dayErr = $monthErr = $yearErr = $genderErr = 'error';
+
+        //check email
+    if($ip_email == $email){
+    }
+    elseif($ip_email==''){
+            $emailErr = "E-mail is required";
+    }
+    elseif($ip_email!=$email){
+            $sql = "SELECT email FROM user_data WHERE email = '$ip_email'";
+            $result = $conn->query($sql);
+            $rowsNum = $result->num_rows;
+            if($rowsNum==0){
+                    $email = $ip_email;
+            }
+            else{
+                    $emailErr = "Email is not available";
+                    $Error = 1;
+            }
+    }
+
+    //check firstname and lastname
+    if($ip_firstname!=''){
+            $firstname = $ip_firstname;
+    }
+    if($ip_lastname!=''){
+            $lastname = $ip_lastname;
+    }
+
+    //check phone number
+    if($ip_phone!='')
+            $phone = $ip_phone;
+
+
+    //check password
+    //echo "Password in database : $password"."<br>";
+    if (!empty($_REQUEST['password']) && !empty($_REQUEST['confirm']) && $_REQUEST['confirm']==$_REQUEST['password'] ) {
+            $password = $ip_password;
+            $passwordErr = '';
+    }
+    elseif(empty($_REQUEST['password']) || empty($_REQUEST['confirm']) || $_REQUEST['confirm']!=$_REQUEST['password'] ){
+            $passwordErr = '*Check your input';
+            $Error = 1;
+    }
+
+    //check birthdate
+    if (empty($_POST['day'])||$_REQUEST['day']=='disable') {
+            $dayErr = "*Select Day";
+            $Error = 1;
+    }
+    else
+    {
+            $day = $ip_day;
+            $dayErr='';
+    }
+    if (empty($_REQUEST['month'])||$_REQUEST['month']=='disable') {
+            $monthErr = "*Select Month";
+            $Error = 1;
+    }
+    else
+    {
+        
+        $month = $ip_month;
+        $monthErr='';
+            
+    }
+    if (empty($_REQUEST['year'])||$_REQUEST['year']=='disable') {
+            $yearErr = "*Select Year";
+            $Error = 1;
+    }
+    else
+    {
+            $year = $ip_year;
+            $yearErr='';
+    }
+    switch ($month) {
+            case '1':
+                    $_month = 'January';
+            break;
+            case '2':
+                    $_month = 'February';
+                    break;
+            case '3':
+                    $_month = 'March';
+                    break;
+            case '4':
+                    $_month = 'April';
+                    break;
+            case '5':
+                    $_month = 'May';
+                    break;
+            case '6':
+                    $_month = 'June';
+                    break;
+            case '7':
+                    $_month = 'July';
+                    break;
+            case '8':
+                    $_month = 'August';
+                    break;
+            case '9':
+                    $_month = 'Septemper';
+                    break;
+            case '10':
+                    $_month = 'October';
+                    break;
+            case '11':
+                    $_month = 'November';
+                    break;
+            case '12':
+                    $_month = 'December';
+                    break;
+    }
+
+    //check gender
+    if(!isset($_POST['gender']))
+    {
+        echo "$GENDER : $gender";
+        //echo"please insert Gender"."<br \>";
+        //$genderErr = "*Select Gender";
+        //$Error = 1;
+    }
+    else
+    {
+        $ip_gender = $_POST['gender'];
+        $genderErr = '';
+    }
+
+    //check maritial status
+    if (empty($_REQUEST['status'])||$_REQUEST['status']=='disable') {
+            $statusErr = "*Select Status";
+            $Error = 1;
+    }
+    else{
+        $status = $ip_status;
+    }
+    //check maritial status
+    if (empty($_REQUEST['gender'])||$_REQUEST['gender']=='disable') {
+            $genderErr = "*Select Gender";
+            $Error = 1;
+    }
+    else{
+        $gender = $ip_gender;
+    }
+
+    $birthdate = "$year-$month-$day";
+    $hometown = $ip_hometown;
+    $bio = $ip_bio;
+
+    /*
+    echo $firstname."<br>";
+    echo $lastname."<br>";
+    echo $password."<br>";
+    echo $email."<br>";
+    echo $phone."<br>";
+    echo $day."<br>";
+    echo $month."<br>";
+    echo $year."<br>";
+    echo $gender."<br>";
+    echo $hometown."<br>";
+    echo $status."<br>";
+    echo $bio."<br>";
+    */
+
+    if($firstname!='' && $lastname!='' && $email!=''){
+                    $sql = "UPDATE user_data SET firstname='$firstname',lastname='$lastname',email='$email',password='$password',birthdate='$ip_date',hometown='$hometown',marital_status='$status',about_me='$bio',gender='$gender',phone='$phone' WHERE id = '$id'";
+                    //echo $sql;
+                    if (mysqli_query($conn, $sql)) {
+                        //echo "New record has been added successfully !";
+                        //header("Location:AccDone.php");
+                    }
+                    else {
+                            //echo "Error: " . $result . ":-" . mysqli_error($conn);
+                            $emialErr = '*Email is unavailable';
+                    }
+                    
+            }
+        
+        
+        //echo "$ip_firstname";
+        //echo "$ip_firstname-$ip_lastname-$ip_email-$ip_password-$ip_confirmpassword-$ip_date";
+                
         }
 
 
@@ -99,7 +312,7 @@
 </head>
 
 <body style="background-color: #dddddd;">
-        <!--<nav class="w3-sidebar w3-bar-block w3-collapse w3-top rectangle"
+        <nav class="w3-sidebar w3-bar-block w3-collapse w3-top rectangle"
                 style="width:300px;background-color: black;"  id="Sidebar">
                 <div class="w3-container w3-display-container w3-padding-16"
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
@@ -116,7 +329,7 @@
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
                 </div>
-        </nav>-->
+        </nav>
 
         <!-- !PAGE CONTENT! -->
         <!-- !SEARCH BOX -->
@@ -131,10 +344,10 @@
                                 </div>
                 </div>
 
-                <div align="center">
+                <div align="left">
                         <form action="#" method="POST" align="left" style="padding: 20px;padding-left: 50px">
                                 <label for="firstname">First Name :</label><input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name" value="<?php global $firstname;echo $firstname ?>">
-                                <label><?php global $test ; echo $test; ?></label>
+                                
                                 <label for="lastname" >Last Name :</label><input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name" value="<?php global $lastname;echo $lastname ?>"><br><br>
                                 <label for="email" >E-mail :</label><input type="text" id="email" name="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com" value="<?php global $email;echo $email ?>">
                                 <label id="used_email_msg" style="color: red;font-size: 12px;" hidden>*E-mail is already used</label><br><br>
@@ -149,7 +362,7 @@
                                 <label for="phone" >Phone Number :</label><input type="text" id="phone" name="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="01** *** ****" value="<?php global $phone;echo $phone ?>"><br><br>
                                 <label id="birthdate">Birthdate :</label>
                                 <select id="day" name="day" disabled>
-                                        <option value=disable selected hidden><?php global $birthdate;echo "$birthdate[2]"; ?></option>
+                                        <option value="<?php echo "$day"; ?>" selected hidden><?php echo "$day"; ?></option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
                                         <option value=3>3</option>
@@ -182,8 +395,9 @@
                                         <option value=30>30</option>
                                         <option value=31>31</option>
                                 </select>
+                        
                                 <select id="month" name="month" disabled>
-                                        <option value=disable selected hidden><?php global $month;echo "$month"; ?></option>
+                                <option value="<?php global $SS_month;echo "$S_month"; ?>" selected hidden><?php global $S_month; echo "$S_month"; ?></option>
                                         <option value=1>January</option>
                                         <option value=2>February</option>
                                         <option value=3>March</option>
@@ -199,7 +413,7 @@
 
                                 </select>
                                 <select id="year" name="year" disabled>
-                                        <option value=disable selected hidden><?php global $birthdate;echo "$birthdate[0]"; ?></option>
+                    <option value="<?php echo "$year"; ?>" selected hidden><?php echo "$year"; ?></option>
                                         <option value=2020>2020</option>
                                         <option value=2019>2019</option>
                                         <option value=2018>2018</option>
@@ -325,43 +539,39 @@
                                 <br><br>
                                 <label for="gender">Gender :</label>
                                 <select name="gender" id="gender" disabled>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                    <option value="<?php echo "$gender"; ?>" selected hidden><?php echo "$gender"; ?></option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
                                 </select>
                                 <br><br>
                                 <label for="hometown">Hometown :</label></label>
-                                <input type="text" id="hometown" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town" value="<?php global $hometown;echo $hometown ?>"><br>
+                                <input type="text" id="hometown" name="hometown" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town" value="<?php global $hometown;echo $hometown ?>"><br>
                                 <br>
                                 <label for="status">Marital Status :</label>
                                 <select name="status" id="status" disabled>
-                                        <?php
-                                        global $marital_status;
-                                        if($marital_status=='S'){
-                                                ?><option value="S" selected hidden >Single</option><?php
-                                        }
-                                        elseif($marital_status=='M'){
-                                                ?><option value='M' selected hidden >Married</option><?php
-                                        }
-                                        elseif($marital_status=='E'){
-                                                ?><option value='E' selected hidden >Engaged</option><?php
-                                        }
-                                        else
-                                                ?><option value=disabled selected hidden >Not Selected</option><?php
-                                        ?>
-                                        <option value="S">Single</option>
-                                        <option value="E">Engaged</option>
-                                        <option value="M">Married</option>
+                    <option value='<?php global $status;echo $status; ?>' selected hidden ><?php global $status;echo $status; ?></option>
+                                        <option value="Single">Single</option>
+                                        <option value="Engaged">Engaged</option>
+                                        <option value="Married">Married</option>
                                 </select>
                                 <br><br>
                                 <label for="bio" >About me :</label><br>
-                                <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled></textarea>
-                                <br>
-                                <button id="login" name="login" onClick="window.location.href ='home.php'"; >Login</button>
-                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" > <label style="color: white;font-size: 17px">Save</label></button>
+                                <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled><?php global $bio;echo $bio ?></textarea>
+                <br>
+                
+                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onClick="window.location.href ='tmp.php'"> <label style="color: white;font-size: 17px">Save</label></button>
                                 
                         </form>
-                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
-                        <label for=""><?PHP global $ip_firstName; echo $ip_firstName; ?></label>
+                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px;margin-left: 50px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
+                        <label for="">
+                <?PHP 
+                global $ip_firstname;
+                global $ip_lastname;
+
+                echo "Mr. $ip_firstname $ip_lastname"; 
+
+                ?>
+            </label>
                         
                 </div>
         </div>

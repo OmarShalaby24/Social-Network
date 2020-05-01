@@ -10,7 +10,9 @@
                 die("Connection failed: " . $conn->connect_error);
         }
         $email = $_SESSION['email'];
-        $sql = "SELECT * FROM user_data WHERE email = '$email'";
+        $id = $_SESSION['id'];
+        $sql = "SELECT * FROM user_data WHERE id = '$id'";
+        
         //echo "$sql";
 
         $result = $conn->query($sql);
@@ -18,10 +20,6 @@
         $row = $result->fetch_assoc();
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +68,8 @@
                                                         style="color: red;"></i> Search</label>
                                         <input type="text" id="search" name="search" placeholder="Search"
                                                 style="width: 700px;padding: 5px;">
-                                        </div>
+                                        <button type="button" class="fa fa-search" id="edit" name="edit" style="width:auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;  font-size: 17px">Advanced Search</label></button>
+                                </div>
                 </div>
                 <div align="center" style="margin-left: -500px">
                         <div class="" style="padding: 20px; width:700px">
@@ -113,6 +112,9 @@
                               </div>
                             </div>
                         </div>
+                        <?php
+                            echo "$id";
+                        ?>
 
                         <!--<h1>First</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1>-->
                 </div>

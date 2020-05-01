@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8">
+                <title>Login</title>
+                <link rel="stylesheet" href="style.css">
+        </head>
+        <body style="background-color: #dddddd;">
+                <header class="rectangle">
+                        <div align="center"><img src="img/Logo.png" alt="logo" class="logo glow" border="2px" height="150px" ></div>
+                </header>
+                <div align="center">
+                        <div  class="rectangle" style="margin-top: 150px; width: 400px;height:auto ;padding: 20px;background-color: white;" <!--align="left"-->
+                                <label for="email">E-mail</label>
+                                <input id="email" name="email" type="text" placeholder="E-mail">
+                                <label  for="password">Password</label>
+                                <input id="password" name="password" type="password" placeholder="password">
+                                <label style="color: red;font-size: 12px;" hidden>*E-mail or Password is wrong</label>
+                                <button id="login" name="login" onClick="window.location.href ='home.html'"; >Login</button>
+                                <button id="newAcc" name="newAcc" onClick="window.location.href ='newAccount.html';" >Create Account</button>
+                        </div>
+
+                </div>
+
+        </body>
+</html>
