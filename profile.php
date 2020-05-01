@@ -169,10 +169,8 @@
     }
     else
     {
-        
-        $month = $ip_month;
-        $monthErr='';
-            
+            $month = $ip_month;
+            $monthErr='';       
     }
     if (empty($_REQUEST['year'])||$_REQUEST['year']=='disable') {
             $yearErr = "*Select Year";
@@ -185,40 +183,40 @@
     }
     switch ($month) {
             case '1':
-                    $_month = 'January';
+                    $S_month = 'January';
             break;
             case '2':
-                    $_month = 'February';
+                    $S_month = 'February';
                     break;
             case '3':
-                    $_month = 'March';
+                    $S_month = 'March';
                     break;
             case '4':
-                    $_month = 'April';
+                    $S_month = 'April';
                     break;
             case '5':
-                    $_month = 'May';
+                    $S_month = 'May';
                     break;
             case '6':
-                    $_month = 'June';
+                    $S_month = 'June';
                     break;
             case '7':
-                    $_month = 'July';
+                    $S_month = 'July';
                     break;
             case '8':
-                    $_month = 'August';
+                    $S_month = 'August';
                     break;
             case '9':
-                    $_month = 'Septemper';
+                    $S_month = 'Septemper';
                     break;
             case '10':
-                    $_month = 'October';
+                    $S_month = 'October';
                     break;
             case '11':
-                    $_month = 'November';
+                    $S_month = 'November';
                     break;
             case '12':
-                    $_month = 'December';
+                    $S_month = 'December';
                     break;
     }
 
@@ -253,7 +251,7 @@
         $gender = $ip_gender;
     }
 
-    $birthdate = "$year-$month-$day";
+    $birthdate = "$year-$ip_month-$day";
     $hometown = $ip_hometown;
     $bio = $ip_bio;
 
@@ -397,7 +395,7 @@
                                 </select>
                         
                                 <select id="month" name="month" disabled>
-                                <option value="<?php global $SS_month;echo "$S_month"; ?>" selected hidden><?php global $S_month; echo "$S_month"; ?></option>
+                                <option value="<?php global $month;echo "$month"; ?>" selected hidden><?php global $S_month; echo "$S_month"; ?></option>
                                         <option value=1>January</option>
                                         <option value=2>February</option>
                                         <option value=3>March</option>
@@ -559,19 +557,10 @@
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled><?php global $bio;echo $bio ?></textarea>
                 <br>
                 
-                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onClick="window.location.href ='tmp.php'"> <label style="color: white;font-size: 17px">Save</label></button>
+                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onClick="window.location.href ='profile.php'"> <label style="color: white;font-size: 17px">Save</label></button>
                                 
                         </form>
-                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px;margin-left: 50px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
-                        <label for="">
-                <?PHP 
-                global $ip_firstname;
-                global $ip_lastname;
-
-                echo "Mr. $ip_firstname $ip_lastname"; 
-
-                ?>
-            </label>
+                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px;margin-left: 50px;margin-top: -30px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
                         
                 </div>
         </div>
