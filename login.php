@@ -4,7 +4,8 @@
 	$password = '';
 	$database = 'database';
 	$id = 0;
-
+	session_start();
+	session_destroy();
 	session_start();
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $database);

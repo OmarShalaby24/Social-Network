@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+            header("Location:error.php");
+        }
     $servername = 'localhost';
     $username = 'root';
     $password = '';
@@ -316,7 +319,7 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="img/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px" onClick="window.location.href ='profile.html'"><br><br>
+                        <img src="img/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href =''">Change Profile Pictuer</a>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"

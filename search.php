@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+            header("Location:error.php");
+        }
     $servername = 'localhost';
     $username = 'root';
     $password = '';
