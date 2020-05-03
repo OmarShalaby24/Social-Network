@@ -68,7 +68,19 @@
                 if (empty($_REQUEST['email'])) {
                         $emialErr = "*Please enter E-mail";
                         $Error = 1;
-                }else $emialErr='';
+                }
+                else
+                {
+                    $sql = "SELECT email FROM user_data WHERE email = '$ip_email'";
+                    $table = $conn->query($sql);
+                    $noRow = $table->num_rows;
+                    if($noRow!=0){
+                        $emialErr = '*Email is unavailable';
+                    }
+                    else{
+                        $emialErr='';
+                    }
+                }
                 if (empty($_POST['day'])) {
                         $dayErr = "*Select Day";
                         $Error = 1;
@@ -89,23 +101,18 @@
 
                         
                 if($fnameErr=='' && $lnameErr=='' && $emialErr=='' && $passwordErr=='' && $confirmErr=='' && $dayErr=='' && $monthErr=='' && $yearErr=='' && $genderErr==''){
+                        echo "hoba";
                         echo "no of Errors = $Error"."<br>";
                         
                         $result = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender')";    
-                        echo $result."<br>";
                         //echo $result."<br>";
-                        //echo $ip_gender."<br>";
-                        //echo "test";
-                        
-                        if (mysqli_query($conn, $result)) {
-                            echo "New record has been added successfully !";
+
+                        if(mysqli_query($conn, $result) || $conn->query($sql)==true)
+                        {
+                            
+                            //echo "New record has been added successfully !";
                             header("Location:AccDone.php");
-                        }
-                        else {
-                                //echo "Error: " . $result . ":-" . mysqli_error($conn);
-                                $emialErr = '*Email is unavailable';
-                        }
-                        
+                        }                        
                 }
         }
 ?>
@@ -326,10 +333,10 @@
                                 <label style="color: red;font-size: 12px;"><?php global $yearErr;echo $yearErr ?></label>
                                 <br>
                                 <label >Gender</label><br>
-                                <input type="radio" id="male" name="gender" value="male">
+                                <input type="radio" id="male" name="gender" value="Male">
                                 <label for="male">Male</label>
                                 <br>
-                                <input type="radio" id="female" name="gender" value="female">
+                                <input type="radio" id="female" name="gender" value="Female">
                                 <label for="female">Female</label>
                                 <br>
                                 <label style="color: red;font-size: 12px;"><?php global $genderErr;echo $genderErr ?></label>

@@ -21,3 +21,11 @@ CREATE TABLE posts(
     isPublic boolean,
     poster_name varchar(40)
 )
+
+CREATE TABLE friends(
+    user1 int,
+    user2 int,
+    CONSTRAINT usr1 FOREIGN KEY(user1) REFERENCES user_data(id),
+    CONSTRAINT usr2 FOREIGN KEY(user2) REFERENCES user_data(id),
+    status varchar(10) CHECK(status in ('Friends','Pending','Not'))
+)

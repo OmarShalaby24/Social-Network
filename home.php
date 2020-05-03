@@ -71,17 +71,10 @@
                                         <button type="button" class="fa fa-search" id="edit" name="edit" style="width:auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;  font-size: 17px">Advanced Search</label></button>
                                 </div>
                 </div>
+                <!-- !Timeline ! -->
+
+
                 <div align="center" style="margin-left: -500px">
-
-                    <?php
-
-                        $sql = "SELECT * FROM posts";
-                        $result = $conn->query($sql);
-
-                    ?>
-
-
-
                         <div class="" style="padding: 20px; width:700px">
                             <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px">
                               <div class="w3-container w3-padding">
@@ -122,11 +115,6 @@
                               </div>
                             </div>
                         </div>
-                        <?php
-                            echo "$id";
-                        ?>
-
-                        <!--<h1>First</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1>-->
                 </div>
         </div>
 </body>
