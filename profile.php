@@ -323,10 +323,11 @@
                         <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
                         <form method="POST" action="pic.php" enctype="multipart/form-data"> 
                             <br>
-                            <input type="file"  style="color: white" name="uploadfile" value=""/> 
+                            <label id="select" for="imageUpload" class="sidebar-item sidebar-button label" onclick="selected()">Select a Picture</label>
+                            <input type="file" id="imageUpload" accept="image/*" style="display: none" name="uploadfile" onclick="selected()">
                             <div> 
-                                <br>
-                                <button type="submit" class="sidebar-item sidebar-button label" name="upload">Change</button> 
+                                <button type="submit" class="" id="change" name="upload" disabled style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;"> Change</button>
+
                             </div> 
                         </form> 
                 </div>
@@ -566,7 +567,7 @@
                                 <br><br>
                                 <label for="bio" >About me :</label><br>
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled><?php global $bio;echo $bio ?></textarea>
-                <br>
+                                <br>
                 
                                 <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onClick="window.location.href ='profile.php'"> <label style="color: white;font-size: 17px">Save</label></button>
                                 
@@ -628,6 +629,9 @@
                         document.getElementById("pass").hidden = false;
                         document.getElementById("save").disabled = false;
                         document.getElementById("link").hidden = true;
+                }
+                function selected(){
+                        document.getElementById("change").disabled = false;
                 }
                 </script>
 </body>
