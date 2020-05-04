@@ -37,6 +37,7 @@
     $bio = $row['about_me'];
     $gender = $row['gender'];
     $phone = $row['phone'];
+    $picture = "img/".$row['profile_picture'];
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +63,7 @@
         style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                     style="background-color: white;"></i>
-            <img src="IMG/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px" onClick="window.location.href ='profile.php'"><br><br>
+            <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px" onClick="window.location.href ='profile.php'"><br><br>
             <label style="text-align: center;color: white;"><?php echo "$firstname $lastname"; ?></label>
         </div>
         <div class="w3-padding-64 w3-large w3-text-grey"
@@ -94,31 +95,24 @@
                 <div class="row" style="content: "";display: table;clear: both;">
                     <form>
                         <div class="column" style="float: left;width: 300px;">
-                            <label for="firstname">First Name :</label><br>
                           <input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="First Name"><br>
-                          <label for="lastname">Last Name :</label><br>
                           <input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Last Name">
                         </div>
                         <div class="column" style="float: left;width: 297px;" >
-                            <label for="email">E-mail :</label><br>
                             <input type="text" id="email" name="email" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="example@example.com">
                         </div>
                         <div class="column" style="float: left;width: 297px;" >
-                            <label for="phone">Phone :</label><br>
                             <input type="text" id="phone" name="phone" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="01*********">
                         </div>
-                        <div class="column" style="float: left;width: 297px;" >
-                            <label for="hometown">Hometown :</label><br>
+                        <div class="column" style="width: 297px;" >
                             <input type="text" id="hometown" name="hometown" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Alexandria">
                         </div>
-                        <div class="column" style="float: left;width: 297px;" >
-                            <label for="post">Post :</label><br>
+                        <div class="column" style="width: 297px;" >
                             <input type="text" id="post" name="post" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="post">
                         </div>
                         <div class="column" style="width: 297px;" >
                             <button type="submit" class="fa fa-search " id="search" name="search" onclick="" style="width: auto;"><label style="color: white;  font-size: 17px;">Search</label></button>
                         </div>
-
                     </form>
                     
                 </div>

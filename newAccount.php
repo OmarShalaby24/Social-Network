@@ -98,20 +98,25 @@
                         $Error = 1;
                 }else $genderErr='';*/
                 
-
+                if($ip_gender == 'Male'){
+                    $picture = 'img/male.png';
+                }
+                elseif ($ip_gender == 'Female') {
+                    $picture = 'img/female.png';
+                }
                         
                 if($fnameErr=='' && $lnameErr=='' && $emialErr=='' && $passwordErr=='' && $confirmErr=='' && $dayErr=='' && $monthErr=='' && $yearErr=='' && $genderErr==''){
                         echo "hoba";
                         echo "no of Errors = $Error"."<br>";
                         
-                        $result = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender')";    
+                        $result = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender,profile_picture) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender',$picture)";
                         //echo $result."<br>";
 
                         if(mysqli_query($conn, $result) || $conn->query($sql)==true)
                         {
                             
                             //echo "New record has been added successfully !";
-                            header("Location:AccDone.php");
+                            //header("Location:AccDone.php");
                         }                        
                 }
         }

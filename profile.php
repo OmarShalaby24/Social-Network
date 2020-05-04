@@ -39,6 +39,7 @@
     $bio = $row['about_me'];
     $gender = $row['gender'];
     $phone = $row['phone'];
+    $picture = "img/".$row['profile_picture'];
         
     switch ($month) {
             case '1':
@@ -319,8 +320,15 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="img/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href =''">Change Profile Pictuer</a>
+                        <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
+                        <form method="POST" action="pic.php" enctype="multipart/form-data"> 
+                            <br>
+                            <input type="file"  style="color: white" name="uploadfile" value=""/> 
+                            <div> 
+                                <br>
+                                <button type="submit" class="sidebar-item sidebar-button label" name="upload">Change</button> 
+                            </div> 
+                        </form> 
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;margin-top: -16px">

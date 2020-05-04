@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2020 at 09:44 PM
+-- Generation Time: May 04, 2020 at 10:40 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -78,7 +78,7 @@ CREATE TABLE `user_data` (
   `email` varchar(360) NOT NULL,
   `password` varchar(50) NOT NULL,
   `birthdate` varchar(10) NOT NULL,
-  `profile_picture` varchar(2000) DEFAULT NULL,
+  `profile_picture` mediumtext DEFAULT NULL,
   `hometown` varchar(20) DEFAULT NULL,
   `marital_status` varchar(10) DEFAULT NULL,
   `about_me` varchar(20) DEFAULT NULL,
@@ -91,10 +91,10 @@ CREATE TABLE `user_data` (
 --
 
 INSERT INTO `user_data` (`id`, `firstname`, `lastname`, `email`, `password`, `birthdate`, `profile_picture`, `hometown`, `marital_status`, `about_me`, `gender`, `phone`) VALUES
-(1, 'Omar', 'Emara', 'Omaremara99@yahoo.com', '0000', '2003-11-22', NULL, NULL, NULL, NULL, 'Male', NULL),
-(2, 'Mayar', 'Adel', 'Mayar_Adel@gmail.com', '1111', '1998-6-7', 'female.png', NULL, NULL, NULL, 'female', NULL),
-(3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '1999-9-24', 'male.png', 'El-Dekhela', 'Single', 'My bio...', 'male', '01211626853'),
-(4, 'Raghda', 'Sallam', 'Raghda.Sallam@gmail.com', '123', '2015-6-6', NULL, NULL, NULL, NULL, 'Female', NULL);
+(1, 'Omar', 'Emara', 'Omaremara99@yahoo.com', '0000', '2003-11-22', 'male.png', 'Louran', 'Engaged', 'Omar beeh', 'Male', NULL),
+(2, 'Mayar', 'Adel', 'Mayar_Adel@gmail.com', '1111', '1998-6-7', 'female.png', 'Ibrahimia', 'Single', 'Mero', 'female', '01111111111'),
+(3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '1999-9-24', 'Logo.png', 'El-Dekhela', 'Single', 'Shalabox', 'male', '01211626853'),
+(4, 'Raghda', 'Sallam', 'Raghda.Sallam@gmail.com', '123', '2015-6-6', 'female.png', 'Smouha', 'Single', 'It\'s Raghda', 'Female', NULL);
 
 --
 -- Indexes for dumped tables

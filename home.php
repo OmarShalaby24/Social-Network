@@ -23,6 +23,8 @@
         $row = $result->fetch_assoc();
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
+        $picture = "img/".$row['profile_picture'];
+        //echo "----------------------------------------------------------------------- $picture";
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +50,7 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="IMG/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px" onClick="window.location.href ='profile.php'"><br><br>
+                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px" onClick="window.location.href ='profile.php'"><br><br>
                         <label style="text-align: center;color: white;"><?php echo "$firstname $lastname"; ?></label>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
