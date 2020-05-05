@@ -320,9 +320,9 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
-                        <form method="POST" action="pic.php" enctype="multipart/form-data"> 
-                            <br>
+                        <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow image" style="width: 100px;height: 100px;object-fit: cover;border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
+                        <form method="POST" action="pic.php" enctype="multipart/form-data" style="margin-top: -6px"> 
+
                             <label id="select" for="imageUpload" class="sidebar-item sidebar-button label" onclick="selected()">Select a Picture</label>
                             <input type="file" id="imageUpload" accept="image/*" style="display: none" name="uploadfile" onclick="selected()">
                             <div> 
@@ -355,7 +355,7 @@
                 </div>
 
                 <div align="left">
-                        <form action="#" method="POST" align="left" style="padding: 20px;padding-left: 50px">
+                        <form action="#" method="POST" align="left" name="form" style="padding: 20px;padding-left: 50px">
                                 <label for="firstname">First Name :</label><input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name" value="<?php global $firstname;echo $firstname ?>">
                                 
                                 <label for="lastname" >Last Name :</label><input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name" value="<?php global $lastname;echo $lastname ?>"><br><br>
@@ -568,11 +568,9 @@
                                 <label for="bio" >About me :</label><br>
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled><?php global $bio;echo $bio ?></textarea>
                                 <br>
-                
-                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: auto;border-radius: 20px" onClick="window.location.href ='profile.php'"> <label style="color: white;font-size: 17px">Save</label></button>
-                                
+                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: 110px;border-radius: 20px" onClick="window.location.href ='profile.php'"> <label style="color: white;font-size: 17px" onclick="form.submit()">Save</label></button>
                         </form>
-                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: auto;border-radius: 20px;margin-left: 50px;margin-top: -30px" onclick="Edit()"> <label style="color: white;font-size: 17px">Edit</label></button>
+                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: 110px;border-radius: 20px;margin-left: 50px;margin-top: -30px" onclick="Edit()"> <label for="edit" style="color: white;font-size: 17px">Edit</label></button>
                         
                 </div>
         </div>

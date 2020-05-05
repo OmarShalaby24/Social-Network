@@ -3,6 +3,43 @@
         if(!isset($_SESSION['id'])){
             header("Location:error.php");
         }
+        $servername = 'localhost';
+        $username = 'root';
+        $password = '';
+        $database = 'database';
+        $conn = new mysqli($servername, $username, $password, $database);
+        // Check connection
+        if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+        }
+        $email = $_SESSION['email'];
+        $id = $_SESSION['id'];
+        //echo "$id"."<br>";
+        //echo $email."<br>";
+        $sql = "SELECT * FROM user_data WHERE id = '$id'";
+
+        $result = $conn->query($sql);
+        $row_num = $result->num_rows;
+        $row = $result->fetch_assoc();
+
+        $id = $row['id'];
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
+        $password = $row['password'];
+        $email = $row['email'];
+        $birthdate = explode('-', $row['birthdate']);
+        //read date from the database
+        //echo "month : $birthdate[1]"."<br>";
+        $day = $birthdate[2];
+        $month = $birthdate[1];
+        $year = $birthdate[0];
+        $profile_picture = $row['profile_picture'];
+        $hometown = $row['hometown'];
+        $status = $row['marital_status'];
+        $bio = $row['about_me'];
+        $gender = $row['gender'];
+        $phone = $row['phone'];
+        $picture = "img/".$row['profile_picture'];
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +65,8 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="img/male.png" alt="" class="w3-wide glow" height="100px" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"onClick="window.location.href ='profile.html'"><br><br>
-                        <label style="text-align: center;color: white;">FName LName</label>
+                        <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow image" style="width: 100px;height: 100px;object-fit: cover;border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
+                        <label style="text-align: center;color: white;"><?php echo "$firstname $lastname" ?></label><br><br><br>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;">

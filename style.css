@@ -87,7 +87,7 @@ div.sticky {
         margin-top: 190px;
 }
 
-input[type=text], [type=password] {
+input[type=text], [type=password], [type=email] {
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -173,6 +173,13 @@ label {
         color: red!important;
         border-radius: 10px;
         background-color: #111111!important;
+}
+.image{
+        width: 100px;
+        height: 100px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
 }
 
 input[type=submit], [type=button],[type=file] {
