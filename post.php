@@ -23,19 +23,23 @@
 			    $tempname = $_FILES["imageUpload"]["tmp_name"];
 				$folder = "IMG/".$filename; 
 				echo "$folder"."<br>";
-		  		
-		        // Get all the submitted data from the form 
-		  		$sql = "INSERT INTO posts (user_id,caption,image,isPublic) VALUES ('$id','$text','$filename','$isPublic')";
-		        // Execute query 
-		        mysqli_query($db, $sql); 
-		          
-		        // Now let's move the uploaded image into the folder: image 
-		        if (move_uploaded_file($tempname, $folder))  { 
+				if (move_uploaded_file($tempname, $folder))  { 
 		            echo "Image uploaded successfully"; 
 		        }else{ 
 		            echo "Failed to upload image"; 
 		      	}
+		  	}
+		  	else{
+		  		$filename = NULL;
+			    $tempname = NULL;
+				//$folder = "IMG/".$filename; 
+		        // Get all the submitted data from the form 
+		        // Now let's move the uploaded image into the folder: image 
 	  		}
+	  		$currdate = date("Y-m-d H:i:s");
+	  		$sql = "INSERT INTO posts (user_id,caption,image,isPublic,date_time) VALUES ('$id','$text','$filename','$isPublic','$currdate')";
+	        // Execute query 
+	        mysqli_query($db, $sql);
 		}
 	}
 	header("Location:home.php");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2020 at 04:38 PM
+-- Generation Time: May 07, 2020 at 12:57 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -54,21 +54,24 @@ CREATE TABLE `posts` (
   `caption` text DEFAULT NULL,
   `image` varbinary(2000) DEFAULT NULL,
   `isPublic` tinyint(1) DEFAULT NULL,
-  `likes` int(11) NOT NULL
+  `likes` int(11) NOT NULL,
+  `date_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `user_id`, `caption`, `image`, `isPublic`, `likes`) VALUES
-(1, 1, 'Hello my friends', NULL, 1, 0),
-(2, 1, 'A private post just for my FRIENDS.', NULL, 0, 0),
-(7, 3, 'First post for me', 0x666c6f7765722e6a7067, 1, 0),
-(8, 3, 'How To Hack NASA!! ', 0x626c61636b686f6c652e6a7067, 1, 0),
-(9, 3, 'My First Post', 0x4361742e6a7067, 1, 0),
-(10, 3, 'Hi...', 0x4361742e6a7067, 1, 0),
-(11, 3, 'Team Work...', 0x4361742e6a7067, 1, 0);
+INSERT INTO `posts` (`id`, `user_id`, `caption`, `image`, `isPublic`, `likes`, `date_time`) VALUES
+(1, 1, 'Happy New Year', NULL, 1, 0, '2020-01-01 00:00:00'),
+(2, 1, 'A private post just for my FRIENDS.', NULL, 0, 0, '2020-02-15 11:15:13'),
+(7, 3, 'First post for me', 0x666c6f7765722e6a7067, 1, 0, '2020-03-02 07:16:26'),
+(8, 3, 'How To Hack NASA!! ', 0x626c61636b686f6c652e6a7067, 1, 0, '2020-03-23 04:50:13'),
+(9, 3, 'My First Post', 0x4361742e6a7067, 1, 0, '2020-04-29 23:35:16'),
+(10, 3, 'Hi...', 0x4361742e6a7067, 1, 0, '2020-04-20 18:03:08'),
+(11, 3, 'Team Work...', 0x4361742e6a7067, 1, 0, '2020-05-07 00:47:28'),
+(16, 3, 'Time Test without picture', '', 1, 0, '2020-05-07 00:55:19'),
+(17, 3, 'Time \r\nTest\r\nWith\r\nPicture.', 0x68756d737465722e6a7067, 1, 0, '2020-05-07 00:55:43');
 
 -- --------------------------------------------------------
 
@@ -98,7 +101,7 @@ CREATE TABLE `user_data` (
 INSERT INTO `user_data` (`id`, `firstname`, `lastname`, `email`, `password`, `birthdate`, `profile_picture`, `hometown`, `marital_status`, `about_me`, `gender`, `phone`) VALUES
 (1, 'Omar', 'Emara', 'Omaremara99@yahoo.com', '0000', '2003-11-22', 'male.png', 'Louran', 'Engaged', 'Omar beeh', 'Male', NULL),
 (2, 'Mayar', 'Adel', 'Mayar_Adel@gmail.com', '1111', '1998-6-7', 'female.png', 'Ibrahimia', 'Single', 'Mero', 'Female', '01111111111'),
-(3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '--', 'male.png', '', 'Single', '', 'Male', '01211626853'),
+(3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '1999-9-24', 'male.png', '', 'Single', '', 'Male', '01211626853'),
 (4, 'Raghda', 'Sallam', 'Raghda.Sallam@gmail.com', '123', '2015-6-6', 'female.png', 'Smouha', 'Single', 'It\'s Raghda', 'Female', NULL);
 
 --
@@ -134,7 +137,7 @@ ALTER TABLE `user_data`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_data`
