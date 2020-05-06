@@ -34,11 +34,15 @@
         <meta charset="utf-8">
         <title>Home</title>
         <link rel="stylesheet" href="style.css">
-
+        <link rel="stylesheet" href="style2.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
 
 </head>
@@ -83,10 +87,18 @@
                         <div class="" style="padding: 20px; width:700px">
                             <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px">
                               <div class="w3-container w3-padding">
-                                <h6 class="w3-opacity">What's in your mind?</h6>
-                                <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px" ></textarea>
-                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-pencil"></i> Post</button> 
-                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-camera"></i> Upload</button> 
+                                <form method="POST" action="post.php" enctype="multipart/form-data">
+                                    <label class="w3-opacity" style="font-size: 17px">What's in your mind?</label>
+                                    <select id="isPublic" name="isPublic" style="font-weight: bold;font-family: cursive;font-size: 12px;height: 25px;width: 80px;padding: 1px;margin-left: 500px;margin-top: -500px">
+                                        <option value=1 selected >Public</option>
+                                        <option value=0 >Private</option>
+                                    </select>
+                                    <textarea id="caption" name="caption" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px" ></textarea>
+                                    <img id="blah" name="picture" alt="" src="#" border="20px" style="object-fit: contain;max-height: 200px;max-width: 500px;box-shadow: 0 0 10px" /><br><br>
+                                    <button type="submit" id="post" name="post" class="w3-button label" style="width: 120px"><i class="fa fa-pencil"></i> Post</button> 
+                                    <label id="select" for="imageUpload" class=" w3-button pic"><i class="fa fa-camera"></i> Upload</label>
+                                    <input type="file" id="imageUpload" name="imageUpload" accept="image/*" style="display: none" onchange="readURL(this);">
+                                </form>
                               </div>
                             </div>
                         </div>
@@ -94,8 +106,8 @@
                             <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
                               <div class="w3-container w3-padding">
                                 <img src="IMG/female.png" align="left" width="50">
-                                <label align="left">Mayar Adel</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Hello World.</text>
+                                <label>Mayar Adel</label>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Good Morning.<br><br><img alt="" src="img/flower.jpg" style="height: 250px;width: 250px;object-fit: contain;"></text>
                                 <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
                               </div>
                             </div>
@@ -105,7 +117,7 @@
                               <div class="w3-container w3-padding">
                                 <img src="IMG/female.png" align="left" width="50">
                                 <label align="left">Raghda Sallam</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Hello Team.</text>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Hello Team.<br><br><img alt="" border="2px" src="" style="height: 150px;width: 150px;object-fit: contain;"></text>
                                 <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
                               </div>
                             </div>
@@ -123,5 +135,19 @@
                 </div>
         </div>
 </body>
+<script type="text/javascript">
+         function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
 
 </html>

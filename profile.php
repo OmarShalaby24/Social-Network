@@ -38,6 +38,7 @@
     $status = $row['marital_status'];
     $bio = $row['about_me'];
     $gender = $row['gender'];
+    $_SESSION['gender'] = $gender;
     $phone = $row['phone'];
     $picture = "img/".$row['profile_picture'];
         
@@ -568,9 +569,11 @@
                                 <label for="bio" >About me :</label><br>
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled><?php global $bio;echo $bio ?></textarea>
                                 <br>
-                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: 110px;border-radius: 20px" onClick="window.location.href ='profile.php'"> <label style="color: white;font-size: 17px" onclick="form.submit()">Save</label></button>
+
+                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: 100px;border-radius: 20px" onClick="window.location.href ='profile.php'"> Save</button>
+                                <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: 100px;border-radius: 20px;margin-left: 0px;margin-top: -30px" onclick="Edit()"> Edit</button>
                         </form>
-                        <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: 110px;border-radius: 20px;margin-left: 50px;margin-top: -30px" onclick="Edit()"> <label for="edit" style="color: white;font-size: 17px">Edit</label></button>
+                        
                         
                 </div>
         </div>
