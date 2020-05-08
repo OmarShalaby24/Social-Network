@@ -105,9 +105,19 @@
                         <div class="" style="padding: 20px; width:700px">
                             <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
                               <div class="w3-container w3-padding">
+                                <img src="IMG/male.png" align="left" width="50">
+                                <label>Omar Shalaby</label>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Big Smoke, it's me, Carl. Chill chill.<br><br><img alt="" src="img/squirel.jpg"  style="box-shadow: 0 0 10px;max-width: 500px;max-height: 200px;object-fit: contain;"></text>
+                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
+                              </div>
+                            </div>
+                        </div>
+                        <div class="" style="padding: 20px; width:700px">
+                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                              <div class="w3-container w3-padding">
                                 <img src="IMG/female.png" align="left" width="50">
                                 <label>Mayar Adel</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Good Morning.<br><br><img alt="" src="img/flower.jpg" style="height: 250px;width: 250px;object-fit: contain;"></text>
+                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Good Morning.<br><br><img alt="" src="img/flower.jpg"  style="box-shadow: 0 0 10px;max-width: 500px;max-height: 200px;object-fit: contain;"></text>
                                 <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
                               </div>
                             </div>

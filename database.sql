@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 12:57 AM
+-- Generation Time: May 08, 2020 at 06:24 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -71,7 +71,10 @@ INSERT INTO `posts` (`id`, `user_id`, `caption`, `image`, `isPublic`, `likes`, `
 (10, 3, 'Hi...', 0x4361742e6a7067, 1, 0, '2020-04-20 18:03:08'),
 (11, 3, 'Team Work...', 0x4361742e6a7067, 1, 0, '2020-05-07 00:47:28'),
 (16, 3, 'Time Test without picture', '', 1, 0, '2020-05-07 00:55:19'),
-(17, 3, 'Time \r\nTest\r\nWith\r\nPicture.', 0x68756d737465722e6a7067, 1, 0, '2020-05-07 00:55:43');
+(17, 3, 'Time \r\nTest\r\nWith\r\nPicture.', 0x68756d737465722e6a7067, 1, 0, '2020-05-07 00:55:43'),
+(18, 3, 'Private Post', '', 0, 0, '2020-05-08 13:05:15'),
+(19, 3, '', 0x4361742e6a7067, 1, 0, '2020-05-08 13:09:00'),
+(20, 3, 'What?!', 0x6b77616c612e6a7067, 1, 0, '2020-05-08 18:22:28');
 
 -- --------------------------------------------------------
 
@@ -137,7 +140,7 @@ ALTER TABLE `user_data`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user_data`
