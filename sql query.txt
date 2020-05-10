@@ -13,13 +13,15 @@ CREATE TABLE `user_data` (
   `phone` varchar(11) DEFAULT NULL
 )
 
-CREATE TABLE posts(
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	user_id int NOT NULL,
+CREATE TABLE timeline1(
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id int NOT NULL,
     caption text,
-    image varbinary(2000),
+    image varchar(2000),
     isPublic boolean,
-    poster_name varchar(40)
+    likes int,
+    date_time datetime,
+    FOREIGN KEY usr_id REFERENCES user_data(id)
 )
 
 CREATE TABLE friends(

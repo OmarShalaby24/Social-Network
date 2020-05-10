@@ -77,7 +77,7 @@
                                                         style="color: red;"></i> Search</label>
                                         <input type="text" id="search" name="search" placeholder="Search"
                                                 style="width: 700px;padding: 5px;">
-                                        <button type="button" class="fa fa-search" id="edit" name="edit" style="width:auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;  font-size: 17px">Advanced Search</label></button>
+                                        <button type="button" class="fa fa-search" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="window.location.href ='search.php'"> <label style="color: white;font-size: 17px">Advanced Search</label></button>
                                 </div>
                 </div>
                 <!-- !Timeline ! -->
@@ -102,46 +102,30 @@
                               </div>
                             </div>
                         </div>
-                        <div class="" style="padding: 20px; width:700px">
-                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
-                              <div class="w3-container w3-padding">
-                                <img src="IMG/male.png" align="left" width="50">
-                                <label>Omar Shalaby</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Big Smoke, it's me, Carl. Chill chill.<br><br><img alt="" src="img/squirel.jpg"  style="box-shadow: 0 0 10px;max-width: 500px;max-height: 200px;object-fit: contain;"></text>
-                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
-                              </div>
-                            </div>
-                        </div>
-                        <div class="" style="padding: 20px; width:700px">
-                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
-                              <div class="w3-container w3-padding">
-                                <img src="IMG/female.png" align="left" width="50">
-                                <label>Mayar Adel</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Good Morning.<br><br><img alt="" src="img/flower.jpg"  style="box-shadow: 0 0 10px;max-width: 500px;max-height: 200px;object-fit: contain;"></text>
-                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
-                              </div>
-                            </div>
-                        </div>
-                        <div class="" style="padding: 20px; width:700px">
-                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
-                              <div class="w3-container w3-padding">
-                                <img src="IMG/female.png" align="left" width="50">
-                                <label align="left">Raghda Sallam</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">Hello Team.<br><br><img alt="" border="2px" src="" style="height: 150px;width: 150px;object-fit: contain;"></text>
-                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
-                              </div>
-                            </div>
-                        </div>
-                        <div class="" style="padding: 20px; width:700px">
-                            <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
-                              <div class="w3-container w3-padding">
-                                <img src="IMG/male.png" align="left" width="50">
-                                <label align="left">Omar Emara</label>
-                                <text id="bio" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;">First Post on this Website.</text>
-                                <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
-                              </div>
-                            </div>
-                        </div>
+                        <?php
+                            $sql = "SELECT user_data.firstname,user_data.lastname,user_data.profile_picture,posts.* FROM user_data INNER JOIN posts ON user_data.id = posts.user_id ORDER BY date_time DESC";
+                            $post = "SELECT user_data.firstname,user_data.lastname,user_data.profile_picture,post.*,friends.*
+                            FROM (posts INNER JOIN user_data ON posts.user_id = user_data.id) INNER JOIN friends ON user_data.id = user1 || user2 = user_data.id) WHERE friends.status = 'Friends'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                while($row = $result->fetch_assoc()) {?>
+                                    <div class="" style="padding: 20px; width:700px">
+                                        <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                                          <div class="w3-container w3-padding">
+                                            <img src="<?php echo "IMG/".$row['profile_picture'] ?>"  style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 60px;width: 60px;object-fit: cover;">
+                                            <label><?php echo $row['firstname']." ".$row['lastname']; ?></label>
+                                            <label style="font-size: 12px;margin-left: 400px;"><?php echo $row['date_time'] ?></label>
+                                            <text id="caption" rows="4" name="bio" class="textarea" placeholder="Type here" style="width: 600px;"><?php echo $row['caption']; ?><br><br><img alt="" src="<?php echo "IMG/".$row['image'] ?>"  style="box-shadow: 0 0 10px;max-width: 500px;max-height: 200px;object-fit: contain;"></text>
+                                            <button type="button" class="w3-button w3-theme" style="width: 120px"><i class="fa fa-thumbs-up"></i> Like</button> 
+                                          </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                            } else {?>
+                                <label>No User Found</label>
+                            <?php }
+                        
+                        ?>
                 </div>
         </div>
 </body>

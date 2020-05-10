@@ -327,7 +327,8 @@
                             <label id="select" for="imageUpload" class="sidebar-item sidebar-button label" onclick="selected()">Select a Picture</label>
                             <input type="file" id="imageUpload" accept="image/*" style="display: none" name="uploadfile" onclick="selected()">
                             <div> 
-                                <button type="submit" class="" id="change" name="upload" disabled style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;"> Change</button>
+                                <button type="submit" class="" id="change" name="upload" disabled style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;"><i class="fa fa-edit"></i> Change</button>
+                                <button type="submit" class="" id="remove" name="remove" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;"><i class="fa fa-remove"></i> Remove</button>
 
                             </div> 
                         </form> 
@@ -570,8 +571,9 @@
                                 <textarea id="bio" rows="4" name="bio" class="textarea" placeholder="Your bio..." disabled><?php global $bio;echo $bio ?></textarea>
                                 <br>
 
-                                <button type="submit" class="fa fa-save" id="save" disabled name="save" style="width: 100px;border-radius: 20px" onClick="window.location.href ='profile.php'"> Save</button>
-                                <button type="button" class="fa fa-pencil" id="edit" name="edit" style="width: 100px;border-radius: 20px;margin-left: 0px;margin-top: -30px" onclick="Edit()"> Edit</button>
+                                <button type="submit" class="" id="save" disabled name="save" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;" onClick="window.location.href ='profile.php'"><i class="fa fa-save"></i> Save</button>
+
+                                <button type="button" class="" id="edit" name="edit" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;font-size: 14px" onclick="Edit()"><i class="fa fa-edit"></i> Edit</button>
                         </form>
                         
                         
@@ -633,6 +635,7 @@
                 }
                 function selected(){
                         document.getElementById("change").disabled = false;
+                        document.getElementById("remove").disabled = false;
                 }
                 </script>
 </body>

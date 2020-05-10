@@ -38,6 +38,46 @@
     $gender = $row['gender'];
     $phone = $row['phone'];
     $picture = "img/".$row['profile_picture'];
+
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        $ip_firstname = htmlspecialchars($_REQUEST['firstname']);
+        $ip_lastname = htmlspecialchars($_REQUEST['lastname']);
+        $ip_email = htmlspecialchars($_REQUEST['email']);
+        $ip_phone = htmlspecialchars($_REQUEST['phone']);
+        $ip_hometown = htmlspecialchars($_REQUEST['hometown']);
+        $ip_post = htmlspecialchars($_REQUEST['post']);
+        $sql = "SELECT * FROM user_data WHERE id != '$id' && ";
+        if(!empty($ip_firstname)){
+            $sql = $sql."firstname = '$ip_firstname' ";
+        }
+        if(!empty($ip_lastname)){
+            if (!empty($ip_firstname)) {
+                $sql = $sql."&& ";
+            }
+            $sql = $sql."lastname = '$ip_lastname' ";
+        }
+        if(!empty($ip_email)){
+            if (!empty($ip_firstname)||!empty($ip_lastname)) {
+                $sql = $sql."&& ";
+            }
+            $sql = $sql."email = '$ip_email' ";
+        }
+        if(!empty($ip_phone)){
+            if (!empty($ip_firstname)||!empty($ip_lastname)||!empty($ip_email)) {
+                $sql = $sql."&& ";
+            }
+            $sql = $sql."phone = '$ip_phone' ";
+        }
+        if(!empty($ip_hometown)){
+            if (!empty($ip_firstname)||!empty($ip_lastname)||!empty($ip_email)||!empty($ip_phone)) {
+                $sql = $sql."&& ";
+            }
+            $sql = $sql."hometown = '$ip_hometown' ";
+        }
+        $result = mysqli_query($conn,$sql);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -93,27 +133,40 @@
             </div>
             <div align="left" style="margin:20px">
                 <div class="row" style="content: "";display: table;clear: both;">
-                    <form>
-                        <div class="column" style="float: left;width: 300px;">
-                          <input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="First Name"><br>
-                          <input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Last Name">
-                        </div>
-                        <div class="column" style="float: left;width: 297px;" >
-                            <input type="text" id="email" name="email" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="example@example.com">
-                        </div>
-                        <div class="column" style="float: left;width: 297px;" >
-                            <input type="text" id="phone" name="phone" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="01*********">
-                        </div>
-                        <div class="column" style="width: 297px;" >
-                            <input type="text" id="hometown" name="hometown" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Alexandria">
-                        </div>
-                        <div class="column" style="width: 297px;" >
-                            <input type="text" id="post" name="post" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="post">
-                        </div>
-                        <div class="column" style="width: 297px;" >
-                            <button type="submit" class="fa fa-search " id="search" name="search" onclick="" style="width: auto;"><label style="color: white;  font-size: 17px;">Search</label></button>
-                        </div>
+                    <form action="#" method="POST">
+                      <input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="First Name"><br>
+                      <input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Last Name">
+                        <input type="text" id="email" name="email" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="example@example.com">
+                        <input type="text" id="phone" name="phone" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="01*********">
+                        <input type="text" id="hometown" name="hometown" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="Alexandria">
+                        <input type="text" id="post" name="post" style="width: 250px;height: 40px;margin-left: 10px;text-align: left;" placeholder="post">
+                        <button type="submit" class="submit" id="search" name="search" onclick="" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;font-size: 14px"><i class="fa fa-search"></i> Search</label></button>
                     </form>
+                    <div>
+                        <?php
+                            if ($result->num_rows > 0) {
+                                ?> <br><label>Results:</label><br> <?php
+                                while($row = $result->fetch_assoc()) {?>
+                                    <div class="" style="padding: 20px; width:500px">
+                                        <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                                          <div class="w3-container w3-padding" align="center">
+                                            <img src="<?php echo "IMG/".$row['profile_picture'] ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;"><br><br>
+                                            <a href="user.php?id=<?php echo $row['id'] ?>&name=<?php echo $row['firstname'].' '.$row['lastname'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br>
+                                            <button type="button" class="w3-button w3-theme" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Add</button> 
+                                            <button type="button" class="w3-button w3-theme" style="width: 120px;background-color: red"><i class="fa fa-thumbs-up"></i> Block</button> 
+                                            <?php $_SESSION['search_id'] = $row['id'] ?>
+                                          </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                            } else {?>
+                                <label>No User Found</label>
+                            <?php }
+                        
+                        ?>
+
+
+                    </div>
                     
                 </div>
             </div>

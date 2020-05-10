@@ -87,7 +87,7 @@
                                                         style="color: red;"></i> Search</label>
                                         <input type="text" id="search" name="search" placeholder="Search"
                                                 style="width: 700px;padding: 5px;">
-                                        <button type="button" class="fa fa-search" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="Edit()"> <label style="color: white;font-size: 17px">Advanced Search</label></button>
+                                        <button type="button" class="fa fa-search" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="window.location.href ='search.php'"> <label style="color: white;font-size: 17px">Advanced Search</label></button>
                                 </div> 
                 </div>
                 <div align="center">

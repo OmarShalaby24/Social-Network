@@ -2,13 +2,14 @@
 	session_start();
 	$id = $_SESSION['id'];
 	$gender = $_SESSION['gender'];
+	$db = mysqli_connect("localhost", "root", "", "database");
     if (isset($_POST['upload']) && !empty($_FILES["uploadfile"]["name"])) { 
   
 	    $filename = $_FILES["uploadfile"]["name"]; 
 	    $tempname = $_FILES["uploadfile"]["tmp_name"];
 		$folder = "img/".$filename; 
 	          
-	    $db = mysqli_connect("localhost", "root", "", "database"); 
+	    
 	  
 	        // Get all the submitted data from the form 
 	  		$sql = "UPDATE user_data SET profile_picture = '$filename' WHERE id = '$id'";
@@ -23,6 +24,20 @@
 	            echo "Failed to upload image"; 
 	      	}
   	} 
+  	elseif (isset($_POST['remove'])) {
+  		$sql = "SELECT gender FROM user_data WHERE id ='$id'";
+  		$result = $db->query($sql);
+  		$row = $result->fetch_assoc();
+  		if($gender == 'Male'){
+  			$sql = "UPDATE user_data SET profile_picture = 'male.png' WHERE id = '$id'";
+  			mysqli_query($db, $sql); 
+  		}
+  		else{
+  			$sql = "UPDATE user_data SET profile_picture = 'female.png' WHERE id = '$id'";
+  			mysqli_query($db, $sql);
+  		}
+
+  	}
   	header("Location:profile.php");
   	exit();
   
