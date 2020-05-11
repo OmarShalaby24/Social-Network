@@ -147,14 +147,11 @@
                             if ($result->num_rows > 0) {
                                 ?> <br><label>Results:</label><br> <?php
                                 while($row = $result->fetch_assoc()) {?>
-                                    <div class="" style="padding: 20px; width:500px">
+                                    <div class="" style="padding: 20px; width:300px">
                                         <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
                                           <div class="w3-container w3-padding" align="center">
                                             <img src="<?php echo "IMG/".$row['profile_picture'] ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;"><br><br>
-                                            <a href="user.php?id=<?php echo $row['id'] ?>&name=<?php echo $row['firstname'].' '.$row['lastname'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br>
-                                            <button type="button" class="w3-button w3-theme" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Add</button> 
-                                            <button type="button" class="w3-button w3-theme" style="width: 120px;background-color: red"><i class="fa fa-thumbs-up"></i> Block</button> 
-                                            <?php $_SESSION['search_id'] = $row['id'] ?>
+                                            <a href="user.php?id=<?php echo $row['id'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br>
                                           </div>
                                         </div>
                                     </div>
@@ -164,13 +161,16 @@
                             <?php }
                         
                         ?>
-
-
                     </div>
                     
                 </div>
             </div>
     </div>
+    <script>
+        function add(){
+            document.getElementByID("add").hidden= true;
+        }
+    </script>
 </body>
 
 </html>

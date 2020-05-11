@@ -26,6 +26,7 @@
     $picture = "img/".$row['profile_picture'];
     
     $sid = $_GET['id'];
+
     //echo "---------------------------------------------------------$sid";
     $sql = "SELECT * FROM user_data WHERE id = '$sid'";
     $sresult = $conn->query($sql);
@@ -107,10 +108,26 @@
                     <div align="center">
                         <img src="IMG/<?php echo $sprofile_picture ?>" alt='' class="w3-wide glow" style = "border-radius: 200px;object-fit: cover;margin-top: 20px;width: 400px;height: 400px"><br><br>
                         <?php
-                        if($id!=$sid){ ?>
-                            <button type="button" class="w3-button w3-theme" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Add</button> 
-                            <button type="button" class="w3-button w3-theme" style="width: 120px;background-color: red"><i class="fa fa-thumbs-up"></i> Block</button> 
-                        <?php
+                        if($id!=$sid){ 
+                            $sql = "SELECT * FROM friends";
+                            $result = $conn->query($sql);
+                            $flag = 0;
+                            while ($row = $result->fetch_assoc()) {
+                                if($row['requester']==$id && $row['requestee']==$sid){
+                                    $flag = 1;
+                                    break;
+                                }
+                            }
+                            if($flag==0){
+                            ?>
+                                <button type="button" id="add" name="add" class="w3-button w3-theme" onclick="window.location.href ='addFriend.php?id=<?php echo $sid ?>'" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Add</button>
+                            <?php
+                            }
+                            else{
+                            ?>
+                                <button type="button" id="cancel" name="cancel" class="w3-button w3-theme" onclick="window.location.href ='cancel.php?id=<?php echo $sid ?>'" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Cancel</button>
+                            <?php
+                            }
                         }
                         ?>
                     </div>
@@ -230,6 +247,14 @@
                 function selected(){
                         document.getElementById("change").disabled = false;
                         document.getElementById("remove").disabled = false;
+                }
+                function add(){
+                        document.getElementById("add").disabled = true;
+                        document.getElementById("cancel").disabled = false;
+                }
+                function Cancel(){
+                        document.getElementById("add").disabled = false;
+                        document.getElementById("cancel").disabled = true;
                 }
                 </script>
 </body>
