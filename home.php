@@ -27,6 +27,8 @@
         $r = mysqli_query($conn,$sql);
         $num = $r->fetch_assoc();
         $req = $num['total'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -106,9 +108,7 @@
                             </div>
                         </div>
                         <?php
-                            $sql = "SELECT user_data.firstname,user_data.lastname,user_data.profile_picture,posts.* FROM user_data INNER JOIN posts ON user_data.id = posts.user_id ORDER BY date_time DESC";
-                            $post = "SELECT user_data.firstname,user_data.lastname,user_data.profile_picture,post.*,friends.*
-                            FROM (posts INNER JOIN user_data ON posts.user_id = user_data.id) INNER JOIN friends ON user_data.id = user1 || user2 = user_data.id) WHERE friends.status = 'Friends'";
+                            $sql = "SELECT user_data.id,user_data.firstname,user_data.lastname,user_data.profile_picture,posts.*,friends.* FROM ((posts INNER JOIN user_data ON posts.user_id = user_data.id)INNER JOIN friends ON posts.user_id=friends.user2) WHERE friends.user1='$id' ORDER BY posts.date_time DESC";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) {?>

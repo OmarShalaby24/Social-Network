@@ -143,7 +143,7 @@
                             $sql = "SELECT * FROM friends WHERE user1='$id'";
                             $result = $conn->query($sql);
                             while ($row = $result->fetch_assoc()) {
-                                if($row['user1']==$id && $row['user2']==$sid || $row['requester']==$sid && $row['requestee']==$id){
+                                if(($row['user1']==$id && $row['user2']==$sid)){
                                     $inFriends = 1;    // ana ely ba3etlo
                                     break;
                                 }

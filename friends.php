@@ -82,8 +82,8 @@
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;">
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.php'">Home</a>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'">Profile</a>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'"  style="color: red!important;border-radius: 10px;background-color: #111111!important;">Friend Requests<span class="w3-badge w3-medium" style="background-color: red;margin-left: 10px;border-radius: 20px;font-size: 8px;"><?php echo $req ?></span></a>
-                        <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='friends.php'">Friends</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'">Friend Requests<span class="w3-badge w3-medium" style="background-color: red;margin-left: 10px;border-radius: 20px;font-size: 8px;"><?php echo $req ?></span></a>
+                        <a href="#" class="sidebar-item sidebar-button label"   style="color: red!important;border-radius: 10px;background-color: #111111!important;margin-bottom: 38px;""onClick="window.location.href ='friends.php'">Friends</a> 
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
                 </div>
@@ -104,12 +104,14 @@
                 <div align="center" style="margin-left: -300px">
                         <?php
                             if ($result->num_rows > 0) {
-                                while($row = $result->fetch_assoc()) {?>
+                                while($row = $result->fetch_assoc()) {
+                                    if($row['id']==$id)continue;
+                                    ?>
                                     <div class="" style="padding: 20px; width:400px">
                                         <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
                                           <div class="w3-container w3-padding" align="center">
                                                 <img src="<?php echo "IMG/".$row['profile_picture'] ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;"><br><br>
-                                                <a href="user.php?id=<?php echo $row['requester'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br><br>
+                                                <a href="user.php?id=<?php echo $row['id'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br><br>
                                           </div>
                                         </div>
                                     </div>

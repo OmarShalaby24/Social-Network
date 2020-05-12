@@ -73,9 +73,11 @@
                 {
                     $sql = "SELECT email FROM user_data WHERE email = '$ip_email'";
                     $table = $conn->query($sql);
+                    $row = $table->fetch_assoc();
                     $noRow = $table->num_rows;
                     if($noRow!=0){
                         $emialErr = '*Email is unavailable';
+                        echo $row['email'];
                     }
                     else{
                         $emialErr='';
@@ -99,25 +101,34 @@
                 }else $genderErr='';*/
                 
                 if($ip_gender == 'Male'){
-                    $picture = 'img/male.png';
+                    $picture = 'male.png';
                 }
                 elseif ($ip_gender == 'Female') {
-                    $picture = 'img/female.png';
+                    $picture = 'female.png';
                 }
                         
                 if($fnameErr=='' && $lnameErr=='' && $emialErr=='' && $passwordErr=='' && $confirmErr=='' && $dayErr=='' && $monthErr=='' && $yearErr=='' && $genderErr==''){
                         echo "hoba";
                         echo "no of Errors = $Error"."<br>";
                         
-                        $result = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender,profile_picture) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender',$picture)";
-                        //echo $result."<br>";
-
-                        if(mysqli_query($conn, $result) || $conn->query($sql)==true)
+                        $sql = "INSERT INTO user_data(firstname,lastname,email,password,birthdate,gender,profile_picture) VALUES('$ip_firstName','$ip_lastName','$ip_email','$ip_password','$ip_date','$ip_gender','$picture')";
+                        echo $sql."<br>";
+                        $row = $conn->query($sql);
+                        if(!empty($row))
                         {
+                            echo "hi";
                             
+                            $sql = "SELECT id FROM user_data WHERE email='$ip_email'";
+                            $result = $conn->query($sql);
+                            $row = $result->fetch_assoc();
+                            $id = $row['id'];
+                            echo "$id"."<br>";
+                            $sql = "INSERT INTO friends(user1, user2) VALUES ('$id','$id')";
+                            $result = $conn->query($sql);
+                            echo "$sql";
                             //echo "New record has been added successfully !";
-                            //header("Location:AccDone.php");
-                        }                        
+                            header("Location:AccDone.php");
+                        }
                 }
         }
 ?>
