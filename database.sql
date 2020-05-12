@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2020 at 06:24 PM
+-- Generation Time: May 12, 2020 at 02:40 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -29,18 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `friends` (
-  `user1` int(11) DEFAULT NULL,
-  `user2` int(11) DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL CHECK (`status` in ('Friends','Pending','Not'))
+  `id` int(11) NOT NULL,
+  `user1` int(11) NOT NULL,
+  `user2` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `friends`
---
-
-INSERT INTO `friends` (`user1`, `user2`, `status`) VALUES
-(2, 1, 'Friends'),
-(1, 3, 'pending');
 
 -- --------------------------------------------------------
 
@@ -65,16 +57,39 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`id`, `user_id`, `caption`, `image`, `isPublic`, `likes`, `date_time`) VALUES
 (1, 1, 'Happy New Year', NULL, 1, 0, '2020-01-01 00:00:00'),
 (2, 1, 'A private post just for my FRIENDS.', NULL, 0, 0, '2020-02-15 11:15:13'),
-(7, 3, 'First post for me', 0x666c6f7765722e6a7067, 1, 0, '2020-03-02 07:16:26'),
-(8, 3, 'How To Hack NASA!! ', 0x626c61636b686f6c652e6a7067, 1, 0, '2020-03-23 04:50:13'),
-(9, 3, 'My First Post', 0x4361742e6a7067, 1, 0, '2020-04-29 23:35:16'),
+(7, 1, 'First post for me', 0x666c6f7765722e6a7067, 1, 0, '2020-03-02 07:16:26'),
+(8, 4, 'How To Hack NASA!! ', 0x626c61636b686f6c652e6a7067, 1, 0, '2020-03-23 04:50:13'),
+(9, 2, 'My First Post', 0x4361742e6a7067, 1, 0, '2020-04-29 23:35:16'),
 (10, 3, 'Hi...', 0x4361742e6a7067, 1, 0, '2020-04-20 18:03:08'),
-(11, 3, 'Team Work...', 0x4361742e6a7067, 1, 0, '2020-05-07 00:47:28'),
-(16, 3, 'Time Test without picture', '', 1, 0, '2020-05-07 00:55:19'),
-(17, 3, 'Time \r\nTest\r\nWith\r\nPicture.', 0x68756d737465722e6a7067, 1, 0, '2020-05-07 00:55:43'),
+(11, 4, 'Team Work...', 0x4361742e6a7067, 1, 0, '2020-05-07 00:47:28'),
+(16, 2, 'Time Test without picture', '', 1, 0, '2020-05-07 00:55:19'),
+(17, 1, 'Time \r\nTest\r\nWith\r\nPicture.', 0x68756d737465722e6a7067, 1, 0, '2020-05-07 00:55:43'),
 (18, 3, 'Private Post', '', 0, 0, '2020-05-08 13:05:15'),
-(19, 3, '', 0x4361742e6a7067, 1, 0, '2020-05-08 13:09:00'),
-(20, 3, 'What?!', 0x6b77616c612e6a7067, 1, 0, '2020-05-08 18:22:28');
+(19, 2, '', 0x4361742e6a7067, 1, 0, '2020-05-08 13:09:00'),
+(20, 2, 'What?!', 0x6b77616c612e6a7067, 1, 0, '2020-05-08 18:22:28'),
+(23, 1, '', 0x68756d73746572322e6a7067, 1, 0, '2020-05-08 21:04:03'),
+(28, 3, 'First Post', 0x7371756972656c2e6a7067, 1, 0, '2020-05-09 05:13:38'),
+(29, 9, 'Eh el community de?', 0x3833343732352d6c617267652d66756e6e792d616e696d616c2d6465736b746f702d6261636b67726f756e64732d3139323078313230302d346b2e6a7067, 1, 0, '2020-05-09 10:34:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requests`
+--
+
+CREATE TABLE `requests` (
+  `id` int(11) NOT NULL,
+  `requester` int(11) DEFAULT NULL,
+  `requestee` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `requests`
+--
+
+INSERT INTO `requests` (`id`, `requester`, `requestee`) VALUES
+(15, 9, 3),
+(16, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -102,10 +117,11 @@ CREATE TABLE `user_data` (
 --
 
 INSERT INTO `user_data` (`id`, `firstname`, `lastname`, `email`, `password`, `birthdate`, `profile_picture`, `hometown`, `marital_status`, `about_me`, `gender`, `phone`) VALUES
-(1, 'Omar', 'Emara', 'Omaremara99@yahoo.com', '0000', '2003-11-22', 'male.png', 'Louran', 'Engaged', 'Omar beeh', 'Male', NULL),
+(1, 'Omar', 'Emara', 'Omaremara99@yahoo.com', '0000', '2003-11-22', 'humster.jpg', 'Louran', 'Engaged', 'Omar beeh', 'Male', '0123456789'),
 (2, 'Mayar', 'Adel', 'Mayar_Adel@gmail.com', '1111', '1998-6-7', 'female.png', 'Ibrahimia', 'Single', 'Mero', 'Female', '01111111111'),
-(3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '1999-9-24', 'male.png', '', 'Single', '', 'Male', '01211626853'),
-(4, 'Raghda', 'Sallam', 'Raghda.Sallam@gmail.com', '123', '2015-6-6', 'female.png', 'Smouha', 'Single', 'It\'s Raghda', 'Female', NULL);
+(3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '1999-9-24', 'bEkNy5U.jpg', 'El-Dekhela', 'Single', 'Shalaboka', 'Male', '01211626853'),
+(4, 'Raghda', 'Sallam', 'Raghda.Sallam@gmail.com', '123', '2015-6-6', 'female.png', 'Smouha', 'Single', 'It\'s Raghda', 'Female', NULL),
+(9, 'Omar', 'Faramawy', 'forma@gmail.com', '555', '1999-10-1', 'male.png', NULL, NULL, NULL, 'Male', NULL);
 
 --
 -- Indexes for dumped tables
@@ -115,14 +131,24 @@ INSERT INTO `user_data` (`id`, `firstname`, `lastname`, `email`, `password`, `bi
 -- Indexes for table `friends`
 --
 ALTER TABLE `friends`
-  ADD KEY `usr1` (`user1`),
-  ADD KEY `usr2` (`user2`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user1` (`user1`),
+  ADD KEY `user2` (`user2`);
 
 --
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `requests`
+--
+ALTER TABLE `requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usr1` (`requester`),
+  ADD KEY `usr2` (`requestee`);
 
 --
 -- Indexes for table `user_data`
@@ -137,16 +163,28 @@ ALTER TABLE `user_data`
 --
 
 --
+-- AUTO_INCREMENT for table `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `requests`
+--
+ALTER TABLE `requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -156,8 +194,21 @@ ALTER TABLE `user_data`
 -- Constraints for table `friends`
 --
 ALTER TABLE `friends`
-  ADD CONSTRAINT `usr1` FOREIGN KEY (`user1`) REFERENCES `user_data` (`id`),
-  ADD CONSTRAINT `usr2` FOREIGN KEY (`user2`) REFERENCES `user_data` (`id`);
+  ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user1`) REFERENCES `user_data` (`id`),
+  ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user2`) REFERENCES `user_data` (`id`);
+
+--
+-- Constraints for table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_data` (`id`);
+
+--
+-- Constraints for table `requests`
+--
+ALTER TABLE `requests`
+  ADD CONSTRAINT `usr1` FOREIGN KEY (`requester`) REFERENCES `user_data` (`id`),
+  ADD CONSTRAINT `usr2` FOREIGN KEY (`requestee`) REFERENCES `user_data` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
