@@ -41,13 +41,15 @@
         $phone = $row['phone'];
         $picture = "img/".$row['profile_picture'];
 
-        $sql = "SELECT * FROM requests INNER JOIN user_data ON user_data.id = requests.requester WHERE requestee='$id'";
+        $sql = "SELECT * FROM friends INNER JOIN user_data ON user_data.id = friends.user2 WHERE user1='$id'";
         $result = $conn->query($sql);
+        $row = mysqli_query($conn,$sql);
 
         $sql = "SELECT COUNT(requester) as total FROM requests WHERE requestee='$id'";
         $r = mysqli_query($conn,$sql);
         $num = $r->fetch_assoc();
         $req = $num['total'];
+        
 ?>
 
 <!DOCTYPE html>
@@ -108,8 +110,6 @@
                                           <div class="w3-container w3-padding" align="center">
                                                 <img src="<?php echo "IMG/".$row['profile_picture'] ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;"><br><br>
                                                 <a href="user.php?id=<?php echo $row['requester'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br><br>
-                                                <button type="button" id="accept" name="accept" class="w3-button w3-theme" onclick="window.location.href ='accept.php?id=<?php echo $row['id'] ?>&&t=1'" style="width: auto;background-color: #00cc00"><i class="fa fa-check"></i> Accept</button>
-                                                <button type="button" id="reject" name="reject" class="w3-button w3-theme" onclick="window.location.href ='reject.php?id=<?php echo $row['id'] ?>&&t=1'" style="width: auto;background-color: #cc0000"><i class="fa fa-close"></i> Reject</button>
                                           </div>
                                         </div>
                                     </div>

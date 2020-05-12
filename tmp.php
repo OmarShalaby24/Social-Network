@@ -1,3 +1,20 @@
+<?php
+	$mysqli = new mysqli("localhost","root","","database");
+	
+	if ($mysqli -> connect_errno) {
+	  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+	  exit();
+	}
+	
+	$sql = "SELECT COUNT(user_id) as total FROM posts WHERE user_id=3";
+	$result = mysqli_query($mysqli,$sql);
+	$row = $result->fetch_assoc();
+	echo $row['total'];
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>

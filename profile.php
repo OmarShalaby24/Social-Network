@@ -295,7 +295,10 @@
         //echo "$ip_firstname-$ip_lastname-$ip_email-$ip_password-$ip_confirmpassword-$ip_date";
                 
         }
-
+    $sql = "SELECT COUNT(requester) as total FROM requests WHERE requestee='$id'";
+    $r = mysqli_query($conn,$sql);
+    $num = $r->fetch_assoc();
+    $req = $num['total'];
 
 ?>
 
@@ -338,7 +341,8 @@
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;margin-top: -16px">
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.php'">Home</a>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'">Profile</a>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'">Friend Requests</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'">Friend Requests<span class="w3-badge w3-medium" style="background-color: red;margin-left: 10px;border-radius: 20px;font-size: 8px;"><?php echo $req ?></span></a>
+                        <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='friends.php'">Friends</a>
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
                 </div>

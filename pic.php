@@ -20,6 +20,10 @@
 	        if (move_uploaded_file($tempname, $folder))  { 
 	            echo "Image uploaded successfully"; 
 	            echo "test";
+	            $currdate = date("Y-m-d H:i:s");
+	            $text = "New Profile Picture";
+		  		$sql = "INSERT INTO posts (user_id,caption,image,isPublic,date_time) VALUES ('$id','$text','$filename',0,'$currdate')";
+		        mysqli_query($db, $sql);
 	        }else{ 
 	            echo "Failed to upload image"; 
 	      	}
