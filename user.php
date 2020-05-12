@@ -78,13 +78,24 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='profile.php'"><br><br>
+                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='user.php?id=<?php echo $id ?>'"><br><br>
                         <label style="text-align: center;color: white;"><?php echo "$firstname $lastname"; ?></label><br><br><br>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;">
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.php'">Home</a>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='profile.php'">Profile</a>
+                        <?php
+                            if($id==$sid){
+                            ?>
+                                <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'" style="color: red!important;border-radius: 10px;background-color: #111111!important;">Profile</a>
+                            <?php
+                            }
+                            else{
+                            ?>
+                                <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'">Profile</a>
+                            <?php
+                            }
+                        ?>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'">Friend Requests</a>
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
@@ -109,38 +120,68 @@
                         <img src="IMG/<?php echo $sprofile_picture ?>" alt='' class="w3-wide glow" style = "border-radius: 200px;object-fit: cover;margin-top: 20px;width: 400px;height: 400px"><br><br>
                         <?php
                         if($id!=$sid){ 
-                            $sql = "SELECT * FROM friends";
+                            $sql = "SELECT * FROM requests";
                             $result = $conn->query($sql);
-                            $flag = 0;
+                            $inRequests = 0;
+                            $inFriends = 0;
                             while ($row = $result->fetch_assoc()) {
                                 if($row['requester']==$id && $row['requestee']==$sid){
-                                    $flag = 1;
+                                    $inRequests = 1;    // ana ely ba3etlo
+                                    break;
+                                }
+                                elseif ($row['requester']==$sid && $row['requestee']==$id) {
+                                    $inRequests = 2;    // hwa ely ba3etly
                                     break;
                                 }
                             }
-                            if($flag==0){
+                            $sql = "SELECT * FROM friends WHERE user1='$id'";
+                            $result = $conn->query($sql);
+                            while ($row = $result->fetch_assoc()) {
+                                if($row['user1']==$id && $row['user2']==$sid || $row['requester']==$sid && $row['requestee']==$id){
+                                    $inFriends = 1;    // ana ely ba3etlo
+                                    break;
+                                }
+                            }
+                            if($inRequests==0 && $inFriends==0){
                             ?>
                                 <button type="button" id="add" name="add" class="w3-button w3-theme" onclick="window.location.href ='addFriend.php?id=<?php echo $sid ?>'" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Add</button>
                             <?php
                             }
-                            else{
+                            elseif($inRequests==1 && $inFriends==0){
                             ?>
-                                <button type="button" id="cancel" name="cancel" class="w3-button w3-theme" onclick="window.location.href ='cancel.php?id=<?php echo $sid ?>'" style="width: 120px;background-color: #00cc00"><i class="fa fa-thumbs-up"></i> Cancel</button>
+                                <button type="button" id="cancel" name="cancel" class="w3-button w3-theme" onclick="window.location.href ='cancel.php?id=<?php echo $sid ?>'" style="width: 120px;background-color: #cc0000"><i class="fa fa-thumbs-up"></i> Cancel</button>
                             <?php
+                            }elseif ($inRequests==2 && $inFriends==0) {
+                                ?>
+                                <button type="button" id="accept" name="accept" class="w3-button w3-theme" onclick="window.location.href ='accept.php?id=<?php echo $sid ?>'" style="width: auto;background-color: #00cc00"><i class="fa fa-check"></i> Accept</button>
+                                <button type="button" id="reject" name="reject" class="w3-button w3-theme" onclick="window.location.href ='reject.php?id=<?php echo $sid ?>'" style="width: auto;background-color: #cc0000"><i class="fa fa-close"></i> Reject</button>
+                                <?php
+                            }
+                            elseif ($inRequests==0 && $inFriends==1) {
+                                ?>
+                                <button type="button" id="unfriend" name="unfriend" class="w3-button w3-theme" onclick="window.location.href ='unfriend.php?id=<?php echo $sid ?>'" style="width: auto;background-color: #cc0000"><i class="fa fa-close"></i> Unfriend</button>
+                                <?php
                             }
                         }
                         ?>
                     </div>
-                    <form action="edit.php" method="post" style="margin-left: 400px">
+                    <form action="profile.php" method="post" style="margin-left: 400px">
                         <label for="firstname">First Name :</label><input type="text" id="firstname" name="firstname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="First Name" value="<?php echo $sfirstname ?>">
                         
                         <label for="lastname" >Last Name :</label><input type="text" id="lastname" name="lastname" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Last Name" value="<?php global $lastname;echo $slastname ?>"><br>
                         <label for="email" >E-mail :</label><input type="text" id="email" name="email" style="width: 300px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="example@example.com" value="<?php global $email;echo $semail ?>">
                         <label id="used_email_msg" style="color: red;font-size: 12px;" hidden>*E-mail is already used</label><br>
 
-                        <label for="phone" >Phone Number :</label><input type="text" id="phone" name="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled value="<?php global $phone;echo $sphone ?>"><br>
+                        <label for="phone" >Phone Number :</label><input type="text" id="phone" name="phone" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled value="<?php 
+                                                                                global $inFriends;
+                                                                                if($inFriends==1 || $id==$sid || empty($sphone)){
+                                                                                    echo $sphone;
+                                                                                }else
+                                                                                    echo "Un available";
+                                                                                ?>"><br>
                         <label id="birthdate">Birthdate :</label>
                         <input type="text" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town" value="<?php echo "$sbirthdate"; ?>"><br>
+                        
                         <label for="gender">Gender :</label>
                         <input type="text" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled placeholder="Home Town" value="<?php echo "$sgender"; ?>"><br>
                         <label for="hometown">Hometown :</label></label>
@@ -149,12 +190,16 @@
                         <label for="status">Marital Status :</label>
                         <input type="text" style="width: 200px;height: 40px;margin-left: 10px;text-align: left;" disabled  value="<?php echo $sstatus ?>"><br>
                         <label for="bio" >Bio :</label><br>
-                        <textarea id="bio" rows="4" name="bio" class="textarea" disabled><?php echo $sbio ?></textarea>
+                        <textarea id="bio" rows="4" name="bio" class="textarea" disabled><?php 
+                                                                                global $inFriends;
+                                                                                if($inFriends==1 || $id==$sid || empty($sbio)){
+                                                                                    echo $sbio;
+                                                                                }else
+                                                                                    echo "Un available";
+                                                                                ?></textarea>
                         <?php
                         if($id==$sid){ ?>
-                            <br><button type="submit" class="" id="save" disabled name="save" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;" onClick="window.location.href ='profile.php'"><i class="fa fa-save"></i> Save</button>
-
-                            <button type="button" class="" id="edit" name="edit" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;font-size: 14px" onclick="Edit()"><i class="fa fa-edit"></i> Edit</button>
+                            <br><button type="button" class="" id="edit" name="edit" style="width: auto;height: 40px;padding: 0 20px 0 20px;margin-top: 10px;border-radius: 20px;font-family: cursive;" onClick="window.location.href ='profile.php'"><i class="fa fa-edit"></i> Edit</button>
                         <?php
                         }
                         ?>

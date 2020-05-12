@@ -16,18 +16,10 @@
     $sid = $_GET['id'];
 
     $flag = 0;
-    $sql = "SELECT * FROM requests";
+    $sql = "DELETE FROM friends WHERE user1='$sid' && user2='$id'";
     $result = $conn->query($sql);
-    while ($row=$result->fetch_assoc()) {
-    	if($row['requester']==$id && $row['requestee']==$sid){
-    		$flag = 1;
-    		break;
-    	}
-    }
-    if($flag==0){
-	    $sql = "INSERT INTO requests (requester,requestee) VALUES ('$id','$sid')";
-	    $conn->query($sql);
-    }
+    $sql = "DELETE FROM friends WHERE user1='$id' && user2='$sid'";
+    $result = $conn->query($sql);
     header("Location:user.php?id=$sid");
 
     

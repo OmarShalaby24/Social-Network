@@ -54,13 +54,13 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='profile.php'"><br><br>
+                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='user.php?id=<?php echo $id ?>'"><br><br>
                         <label style="text-align: center;color: white;"><?php echo "$firstname $lastname"; ?></label><br><br><br>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;">
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.php'" style="color: red!important;border-radius: 10px;background-color: #111111!important;">Home</a>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='profile.php'">Profile</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'">Profile</a>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'">Friend Requests</a>
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>

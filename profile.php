@@ -280,7 +280,8 @@
                     //echo $sql;
                     if (mysqli_query($conn, $sql)) {
                         //echo "New record has been added successfully !";
-                        //header("Location:AccDone.php");
+                        header("Location:user.php?id=$id");
+
                     }
                     else {
                             //echo "Error: " . $result . ":-" . mysqli_error($conn);
@@ -321,7 +322,7 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow image" style="width: 100px;height: 100px;object-fit: cover;border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
+                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='user.php?id=<?php echo $id ?>'"><br><br>
                         <form method="POST" action="pic.php" enctype="multipart/form-data" style="margin-top: -6px"> 
 
                             <label id="select" for="imageUpload" class="sidebar-item sidebar-button label" onclick="selected()">Select a Picture</label>
@@ -336,7 +337,7 @@
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;margin-top: -16px">
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.php'">Home</a>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='profile.php'" style="color: red!important;border-radius: 10px;background-color: #111111!important;">Profile</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'">Profile</a>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'">Friend Requests</a>
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
@@ -425,7 +426,7 @@
 
                                 </select>
                                 <select id="year" name="year" disabled>
-                    <option value="<?php echo "$year"; ?>" selected hidden><?php echo "$year"; ?></option>
+                                <option value="<?php echo "$year"; ?>" selected hidden><?php echo "$year"; ?></option>
                                         <option value=2020>2020</option>
                                         <option value=2019>2019</option>
                                         <option value=2018>2018</option>

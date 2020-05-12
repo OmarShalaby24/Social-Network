@@ -68,7 +68,7 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='profile.php'"><br><br>
+                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='user.php?id=<?php echo $id ?>'"><br><br><br>
                         <label style="text-align: center;color: white;"><?php echo "$firstname $lastname"; ?></label><br><br><br>
                 </div>
         <div class="w3-padding-64 w3-large w3-text-grey"

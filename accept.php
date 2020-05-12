@@ -1,5 +1,5 @@
 <?php
-	session_start();
+    session_start();
     if(!isset($_SESSION['id'])){
         header("Location:error.php");
     }
@@ -14,21 +14,22 @@
     }
     $id = $_SESSION['id'];
     $sid = $_GET['id'];
+    $t = $_GET['t'];
 
     $flag = 0;
-    $sql = "SELECT * FROM requests";
+    $sql = "DELETE FROM requests WHERE requester='$sid' && requestee='$id'";
     $result = $conn->query($sql);
-    while ($row=$result->fetch_assoc()) {
-    	if($row['requester']==$id && $row['requestee']==$sid){
-    		$flag = 1;
-    		break;
-    	}
+
+    $sql = "INSERT INTO friends(user1,user2) VALUES ('$id','$sid')";
+    $result = $conn->query($sql);
+    
+    $sql = "INSERT INTO friends(user1,user2) VALUES ('$sid','$id')";
+    $result = $conn->query($sql);
+    if ($t == '1'||$t == 1) {
+        header("Location:requests.php");
+    }else{
+        header("Location:user.php?id=$sid");
     }
-    if($flag==0){
-	    $sql = "INSERT INTO requests (requester,requestee) VALUES ('$id','$sid')";
-	    $conn->query($sql);
-    }
-    header("Location:user.php?id=$sid");
 
     
 ?>

@@ -40,6 +40,9 @@
         $gender = $row['gender'];
         $phone = $row['phone'];
         $picture = "img/".$row['profile_picture'];
+
+        $sql = "SELECT * FROM requests INNER JOIN user_data ON user_data.id = requests.requester WHERE requestee='$id'";
+        $result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -65,13 +68,13 @@
                 style="margin-top: 10px;background-color: black;margin-top: -0px;" align="center">
                         <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright;"
                                 style="background-color: white;"></i>
-                        <img src="<?php echo $picture; ?>" alt="" class="w3-wide glow image" style="width: 100px;height: 100px;object-fit: cover;border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px"><br><br>
+                        <img src="<?php echo $picture ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;" onClick="window.location.href ='user.php?id=<?php echo $id ?>'"><br><br>
                         <label style="text-align: center;color: white;"><?php echo "$firstname $lastname" ?></label><br><br><br>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey"
                         style="font-weight:bold;height: auto;background-color: black;position: sticky;">
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='home.php'">Home</a>
-                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='profile.php'">Profile</a>
+                        <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='user.php?id=<?php echo $id ?>'">Profile</a>
                         <a href="#" class="sidebar-item sidebar-button label" onClick="window.location.href ='requests.php'"  style="color: red!important;border-radius: 10px;background-color: #111111!important;">Friend Requests</a>
                         <br><br><br><br><br><br><br>
                         <a href="#" class="sidebar-item sidebar-button label" style="margin-bottom: 38px;"onClick="window.location.href ='login.php'">Logout</a>
@@ -90,8 +93,25 @@
                                         <button type="button" class="fa fa-search" id="edit" name="edit" style="width: auto;border-radius: 20px" onclick="window.location.href ='search.php'"> <label style="color: white;font-size: 17px">Advanced Search</label></button>
                                 </div> 
                 </div>
-                <div align="center">
-                        
+                <div align="center" style="margin-left: -300px">
+                        <?php
+                            if ($result->num_rows > 0) {
+                                while($row = $result->fetch_assoc()) {?>
+                                    <div class="" style="padding: 20px; width:400px">
+                                        <div class="w3-card w3-round w3-white"style="border-radius:20px;box-shadow: 0 5px 10px" align="left">
+                                          <div class="w3-container w3-padding" align="center">
+                                                <img src="<?php echo "IMG/".$row['profile_picture'] ?>" alt="" class="w3-wide glow" style="border-radius: 200px;box-shadow: 0 0 10px white;margin-top: 20px;height: 100px;width: 100px;object-fit: cover;"><br><br>
+                                                <a href="user.php?id=<?php echo $row['requester'] ?>" class="label" style="text-decoration:none"><?php echo $row['firstname']." ".$row['lastname']; ?></a><br><br>
+                                                <button type="button" id="accept" name="accept" class="w3-button w3-theme" onclick="window.location.href ='accept.php?id=<?php echo $row['id'] ?>&&t=1'" style="width: auto;background-color: #00cc00"><i class="fa fa-check"></i> Accept</button>
+                                                <button type="button" id="reject" name="reject" class="w3-button w3-theme" onclick="window.location.href ='reject.php?id=<?php echo $row['id'] ?>&&t=1'" style="width: auto;background-color: #cc0000"><i class="fa fa-close"></i> Reject</button>
+                                          </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                            } else {?>
+                                <label>No User Found</label>
+                            <?php }
+                        ?>
                 </div>
         </div>
 </body>

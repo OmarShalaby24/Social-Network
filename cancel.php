@@ -16,11 +16,11 @@
     $sid = $_GET['id'];
 
     $flag = 0;
-    $sql = "SELECT * FROM friends";
+    $sql = "SELECT * FROM requests";
     $result = $conn->query($sql);
     while ($row=$result->fetch_assoc()) {
     	if($row['requester']==$id && $row['requestee']==$sid){
-    	    $sql = "DELETE FROM friends WHERE requester='$id'&&requestee='$sid'";
+    	    $sql = "DELETE FROM requests WHERE requester='$id'&&requestee='$sid'";
     	    $conn->query($sql);
         }
     }
