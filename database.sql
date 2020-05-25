@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2020 at 06:31 PM
+-- Generation Time: May 25, 2020 at 10:07 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -40,7 +39,19 @@ CREATE TABLE `friends` (
 
 INSERT INTO `friends` (`id`, `user1`, `user2`) VALUES
 (27, 3, 2),
-(28, 2, 3);
+(28, 2, 3),
+(29, 1, 1),
+(30, 2, 2),
+(31, 3, 3),
+(32, 4, 4),
+(33, 9, 9),
+(34, 10, 10),
+(35, 3, 10),
+(36, 10, 3),
+(37, 1, 3),
+(38, 3, 1),
+(39, 9, 3),
+(40, 3, 9);
 
 -- --------------------------------------------------------
 
@@ -77,7 +88,9 @@ INSERT INTO `posts` (`id`, `user_id`, `caption`, `image`, `isPublic`, `likes`, `
 (20, 2, 'What?!', 0x6b77616c612e6a7067, 1, 0, '2020-05-08 18:22:28'),
 (23, 1, '', 0x68756d73746572322e6a7067, 1, 0, '2020-05-08 21:04:03'),
 (28, 3, 'First Post', 0x7371756972656c2e6a7067, 1, 0, '2020-05-09 05:13:38'),
-(29, 9, 'Eh el community de?', 0x3833343732352d6c617267652d66756e6e792d616e696d616c2d6465736b746f702d6261636b67726f756e64732d3139323078313230302d346b2e6a7067, 1, 0, '2020-05-09 10:34:23');
+(29, 9, 'Eh el community de?', 0x3833343732352d6c617267652d66756e6e792d616e696d616c2d6465736b746f702d6261636b67726f756e64732d3139323078313230302d346b2e6a7067, 1, 0, '2020-05-09 10:34:23'),
+(32, 10, 'New Profile Picture', 0x39323636393835375f333034303035383030393334393239365f363437343939383934393139383433303230385f6e2e6a7067, 0, 0, '2020-05-25 22:01:16'),
+(33, 3, 'Zeghlooooooooooooooooooooo', 0x39323636393835375f333034303035383030393334393239365f363437343939383934393139383433303230385f6e2e6a7067, 1, 0, '2020-05-25 22:02:16');
 
 -- --------------------------------------------------------
 
@@ -90,13 +103,6 @@ CREATE TABLE `requests` (
   `requester` int(11) DEFAULT NULL,
   `requestee` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `requests`
---
-
-INSERT INTO `requests` (`id`, `requester`, `requestee`) VALUES
-(16, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -128,7 +134,8 @@ INSERT INTO `user_data` (`id`, `firstname`, `lastname`, `email`, `password`, `bi
 (2, 'Mayar', 'Adel', 'Mayar_Adel@gmail.com', '1111', '2020-1-1', 'female.png', 'EL-Ibrahimia', 'Engaged', 'Super Mero', 'Female', '01111111111'),
 (3, 'Omar', 'Shalaby', 'ramo_24@outlook.com', '000', '1999-9-24', 'bEkNy5U.jpg', 'El-Dekhela', 'Single', 'Shalaboka', 'Male', '01211626853'),
 (4, 'Raghda', 'Sallam', 'Raghda.Sallam@gmail.com', '123', '2015-6-6', 'female.png', 'Smouha', 'Single', 'It\'s Raghda', 'Female', NULL),
-(9, 'Omar', 'Faramawy', 'forma@gmail.com', '555', '1999-10-1', 'male.png', NULL, NULL, NULL, 'Male', NULL);
+(9, 'Omar', 'Faramawy', 'forma@gmail.com', '555', '1999-10-1', 'male.png', NULL, NULL, NULL, 'Male', NULL),
+(10, 'Abdel Rahman', 'Zaghloul', 'zeghlo@gmail.com', '123', '1999-10-25', '92669857_3040058009349296_6474998949198430208_n.jpg', NULL, NULL, NULL, 'Male', NULL);
 
 --
 -- Indexes for dumped tables
@@ -173,25 +180,25 @@ ALTER TABLE `user_data`
 -- AUTO_INCREMENT for table `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
